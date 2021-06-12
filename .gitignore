@@ -11,6 +11,7 @@
 *.cb
 *.cb2
 .*.lb
+*.bbl
 
 ## Intermediate documents:
 *.dvi
@@ -274,3 +275,6 @@ TSWLatexianTemp*
 
 # Makeindex log files
 *.lpz
+
+#other
+.DS_Store
