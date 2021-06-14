@@ -1,17 +1,7 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
+
 % Template per Elaborato di Laurea
 % DISI - Dipartimento di Ingegneria e Scienza dell’Informazione
-%
-% update 2015-09-10
-%
-% Per la generazione corretta del 
-% pdflatex nome_file.tex
-% bibtex nome_file.aux
-% pdflatex nome_file.tex
-% pdflatex nome_file.tex
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 % formato FRONTE RETRO
 \documentclass[epsfig,a4paper,11pt,titlepage,twoside,openany]{book}
@@ -40,13 +30,6 @@
 
   \clearpage
  
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Nota
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Sezione Ringraziamenti opzionale
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \input{./chapters/ringraziamenti/ringraziamenti}
   \clearpage
   \pagestyle{plain} % nessuna intestazione e pie pagina con numero al centro
@@ -99,6 +82,8 @@
       
       % sommario
       \input{./chapters/summary/sommario}
+      
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Nota
@@ -120,10 +105,14 @@
       %
       % \input oppure \include
       %
-      \input{./chapters/01/capitolo1}
-      \input{./chapters/02/capitolo2}
-      \input{./chapters/03/capitolo3}
-      %\input{capitolo4}
+      \input{./chapters/01/introduction}
+      \input{./chapters/02/background}
+      \input{./chapters/03/methods}
+      \input{./chapters/04/results}
+      \input{./chapters/05/infrastructure}
+      \input{./chapters/06/conclusions}
+
+
       
       
     \endgroup
