@@ -1,7 +1,5 @@
-
 % Template per Elaborato di Laurea
 % DISI - Dipartimento di Ingegneria e Scienza dell’Informazione
-
 
 % formato FRONTE RETRO
 \documentclass[epsfig,a4paper,11pt,titlepage,twoside,openany]{book}
@@ -13,7 +11,6 @@
 
 %%%%%%%%%%%%%%
 % supporto lettere accentate
-%
 %\usepackage[latin1]{inputenc} % per Windows;
 \usepackage[utf8x]{inputenc} % per Linux (richiede il pacchetto unicode);
 %\usepackage[applemac]{inputenc} % per Mac.
@@ -38,6 +35,56 @@
   % inizio numerazione pagine in numeri arabi
   \mainmatter
 
+
+
+    % indice
+    \tableofcontents
+    \clearpage
+    
+    
+          
+    % gruppo per definizone di successione capitoli senza interruzione di pagina
+    \begingroup
+
+      \renewcommand{\cleardoublepage}{} 
+      \renewcommand{\clearpage}{} 
+ 
+      \titleformat{\chapter}
+        {\normalfont\Huge\bfseries}{\thechapter}{1em}{}
+        
+      \titlespacing*{\chapter}{0pt}{0.59in}{0.02in}
+      \titlespacing*{\section}{0pt}{0.20in}{0.02in}
+      \titlespacing*{\subsection}{0pt}{0.10in}{0.02in}
+      
+      % sommario
+      \input{./chapters/summary/sommario}
+
+      % lista dei capitoli
+      %
+      \input{./chapters/01/introduction}
+      \input{./chapters/02/background}
+      \input{./chapters/03/methods}
+      \input{./chapters/04/results}
+      \input{./chapters/05/infrastructure}
+      \input{./chapters/06/conclusions}
+
+    \endgroup
+
+
+
+    \addcontentsline{toc}{chapter}{Bibliografia}
+    \bibliographystyle{plain}
+    \bibliography{biblio}
+
+    \titleformat{\chapter}
+        {\normalfont\Huge\bfseries}{Allegato \thechapter}{1em}{}
+    % sezione Allegati - opzionale
+    \appendix
+    \input{./chapters/allegati/allegati}
+
+\end{document}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Nota
@@ -53,78 +100,6 @@
 %%   allegati    
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-    % indice
-    \tableofcontents
-    \clearpage
-    
-    
-          
-    % gruppo per definizone di successione capitoli senza interruzione di pagina
-    \begingroup
-      % nessuna interruzione di pagina tra capitoli
-      % ridefinizione dei comandi di clear page
-      \renewcommand{\cleardoublepage}{} 
-      \renewcommand{\clearpage}{} 
-      % redefinizione del formato del titolo del capitolo
-      % da formato
-      %   Capitolo X
-      %   Titolo capitolo
-      % a formato
-      %   X   Titolo capitolo
-      
-      \titleformat{\chapter}
-        {\normalfont\Huge\bfseries}{\thechapter}{1em}{}
-        
-      \titlespacing*{\chapter}{0pt}{0.59in}{0.02in}
-      \titlespacing*{\section}{0pt}{0.20in}{0.02in}
-      \titlespacing*{\subsection}{0pt}{0.10in}{0.02in}
-      
-      % sommario
-      \input{./chapters/summary/sommario}
-      
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Nota
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Sommario e' un breve riassunto del lavoro svolto dove si descrive 
-%% l’obiettivo, l’oggetto della tesi, le metodologie e 
-%% le tecniche usate, i dati elaborati e la spiegazione delle conclusioni 
-%% alle quali siete arrivati.
-%% Il sommario dell’elaborato consiste al massimo di 3 pagine e deve contenere le seguenti informazioni: 
-%%   contesto e motivazioni
-%%   breve riassunto del problema affrontato
-%%   tecniche utilizzate e/o sviluppate
-%%   risultati raggiunti, sottolineando il contributo personale del laureando/a
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%      
-      
-      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      % lista dei capitoli
-      %
-      % \input oppure \include
-      %
-      \input{./chapters/01/introduction}
-      \input{./chapters/02/background}
-      \input{./chapters/03/methods}
-      \input{./chapters/04/results}
-      \input{./chapters/05/infrastructure}
-      \input{./chapters/06/conclusions}
-
-
-      
-      
-    \endgroup
-
-
-    % bibliografia in formato bibtex
-    %
-    % aggiunta del capitolo nell'indice
-    \addcontentsline{toc}{chapter}{Bibliografia}
-    % stile con ordinamento alfabetico in funzione degli autori
-    \bibliographystyle{plain}
-    \bibliography{biblio}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Nota
@@ -153,11 +128,3 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-
-    \titleformat{\chapter}
-        {\normalfont\Huge\bfseries}{Allegato \thechapter}{1em}{}
-    % sezione Allegati - opzionale
-    \appendix
-    \input{./chapters/allegati/allegati}
-
-\end{document}

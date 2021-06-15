@@ -1,4 +1,30 @@
 \chapter{Methods}
-\label{cha:conclusioni}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nunc orci. Aliquam nec nisl vitae sapien pulvinar dictum quis non urna. Suspendisse at dui a erat aliquam vestibulum. Quisque ultrices pellentesque pellentesque. Pellentesque egestas quam sed blandit tempus. Sed congue nec risus posuere euismod. Maecenas ut lacus id mauris sagittis egestas a eu dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque at ultrices tellus. Ut eu purus eget sem iaculis ultricies sed non lorem. Curabitur gravida dui eget ex vestibulum venenatis. Phasellus gravida tellus velit, non eleifend justo lobortis eget. 
+\label{cha:methods}
+\section{Dataset }
+The dataset used is the wikimedia history dumps which is a large dataset derived from 
+- TSV 
+- each line is an event
+- event types: revision page user 
+
+i'm interested in revision event 
+
+here you the schema overview 
+
+more detailed info there 
+
+
+\section{Approach}
+Considering the huge dimension of the dataset and the fact that a large portion of its content was useless, 
+smaller datasets have been computed with the aim of expediting the analysis even for future usages.
+
+the first skimming was to filter the rows, after this only the revisions which made o received a revert is keeped.
+than i ordered it by page, this sataset which is ~10 \% of the original one is the one i used to computeal the now dataset\dots
+
+while this is just the biggest one without some rows, the structure of computed one is different. there are 2 modules
+\begin{itemize}
+    \item Chains
+    \item Group 
+\end{itemize}
+
+image slide 5 
 
