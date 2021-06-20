@@ -17,7 +17,7 @@
 
 \singlespacing
 
-\usepackage[italian]{babel}
+\usepackage[english]{babel}
 
 \begin{document}
 
@@ -47,10 +47,10 @@
     \begingroup
 
       \renewcommand{\cleardoublepage}{} 
-      \renewcommand{\clearpage}{} 
- 
-      \titleformat{\chapter}
-        {\normalfont\Huge\bfseries}{\thechapter}{1em}{}
+      %\renewcommand{\clearpage}{} 
+    % commentato altrimenti si rompe !!!!!!!!!!!!!!!!!!!!!!!!
+      %\titleformat{\chapter}
+       % {\normalfont\Huge\bfseries}{\thechapter}{1em}{}
         
       \titlespacing*{\chapter}{0pt}{0.59in}{0.02in}
       \titlespacing*{\section}{0pt}{0.20in}{0.02in}
@@ -60,7 +60,7 @@
       \input{./chapters/summary/sommario}
 
       % lista dei capitoli
-      %
+      \clearpage
       \input{./chapters/01/introduction}
       \input{./chapters/02/background}
       \input{./chapters/03/methods}
