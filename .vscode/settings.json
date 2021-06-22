@@ -1,0 +1,19 @@
+{
+    "grammarly.overrides": [
+        {
+            "files": [
+                "**/src/chapters/02/background.tex"
+            ],
+            "config": {
+                "audience": "expert",
+                "dialect": "american",
+                "domain": "academic",
+                "emotions": [],
+                "goals": [
+                    "inform",
+                    "describe"
+                ]
+            }
+        }
+    ]
+}
