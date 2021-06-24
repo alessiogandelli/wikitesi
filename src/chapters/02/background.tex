@@ -1,74 +1,83 @@
 \chapter{Background}
-Everyone knows what is WP and how to use it in a basic way but there lots of functionality
-there a lot of people ignore, starting from the fact that everyone can edit a page and all the
-versions are publicly available. Anyone with a browser can see and compare all the edits in a
-wikipedia page, but for developers there exist much powerful resources such as big Datasets 
-containing a lot more informations.  
+Everyone knows what is Wikipedia and how to read an article, but there are many features
+that most people are not aware of, \textit{e.g.} see all the versions of a page and being able to edit it. 
+Anyone with a browser and without much effort can see and compare all the edits in a
+Wikipedia page. For developers, there are many powerful resources such as big datasets
+containing a lot more information.  
 
 \section{History Exploration}
-There are several tools anyone can use to explore revision history: 
-\begin{wrapfigure}[12]{r}{0.5\textwidth}[h]
-    \centering
-    \includegraphics[width=0.35\textwidth]{./chapters/02/assets/mobile_history.jpg}
-    \caption{mobile interactive visualization of the history}
-    \label{fig:mobilehistory}
-\end{wrapfigure}
+In the history section of a wikipedia article is possibile to see every version of the page.
+There are several tools anyone can use to explore the revision history: 
+% questa va se vuoi foto e testo vicini
+% \begin{wrapfigure}[12]{r}{0.5\textwidth}[h]
+%     \centering
+%     \includegraphics[width=0.35\textwidth]{./chapters/02/assets/mobile_history.jpg}
+%     \caption{mobile interactive visualization of the history}
+%     \label{fig:mobilehistory}
+% \end{wrapfigure}
+
 
 \begin{itemize}
-    \item Mobile application: this resource is only avaiable in the mobile application and gives
-        some statistics about the edits of the page like the total number of edits 
-    \item History page: it is possibile to compare two edits with an interactive tool which show the
-        trend of the pages edit : for each edit matches a bar indicating the number of bytes added or
-        removed by the revision 
+    \item Mobile application: this resource is only available on mobile device and provides us
+        some statistics about the edits of the page like the total number of revisions (Fig \ref{fig:mobilehistory}). 
+    \item Website: it is possible to compare two versions with an interactive tool that shows
+        the progress of the modified page: each change corresponds to a bar indicating the number of
+        bytes added or removed from the revision(Fig. \ref{fig:history}).
 \end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{./chapters/02/assets/mobile_history.jpg}
+    \caption{Mobile interactive visualization of the history}
+    \label{fig:mobilehistory}
+\end{figure}
 
-
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{./chapters/02/assets/history.png}
-    \caption{interactive visualization of the history}
+    \caption{Interactive visualization of the history}
     \label{fig:history}
 \end{figure}
 
 
 \section{Dataset}
-There are two datasets that store info about WP edits made available from the WikiMedia Foundation
+There are two datasets that store info about Wikipedia edits made available from the WikiMedia
+Foundation: a) the MediaWiki History and b) the MediaWiki History Dumps
+
+
+The only difference other than the format (XML the former, TSV the latter) is that the former has the
+page content. The dataset used in this study is the MediaWiki History Dumps.\\
+
+Each line of the TSV represent an event and, since it is denormalized, the events for user, page and
+revision are stored in the same schema.
+All event entity have different event types:
 \begin{itemize}
-    \item MediaWiki History
-    \item MediaWiki History Dumps
+    \item Page: create, delete, move, reatore, merge  
+    \item User: create, rename, altergroup (change user rights), alterblocks (block user)
+    \item Revision: create (edit a page)
 \end{itemize}
 
-The only difference beyond the format ( XML the first one TSV the second) is that the first one also
-contains the content of the page. The dataset used in this study is the MediaWiki History Dumps.
-
-\subsection{MediaWiki History Dumps}
-The dataset used contains information about all events that has happened in WP since 2001. There are 3 types
-of events:
-\begin{itemize}
-    \item page: when a page is created, moved, restored, merged ,deleted 
-    \item user: when a user is created, renamed, blocked, changed the rights 
-    \item revision: when a page is edited 
-\end{itemize}
-
-In this analysis the only revision events are interesting, there are 68 fields divided in different
- sections: the first one with general info of the revision like timestamp and comment, a section
- with info about the user who made the revision, one for the page involved, and the last one with
- more specific information about the revision
-
-
+In this analysis only revision events are of interest, there are 68 fields but only a few were
+needed. The entry could be divided in different sections: one section with general information of
+the revision like timestamp and comment, a section with information about the user who did the
+revision, one for the page where the revision was made, and the last one with more specific
+information about the revision. The most interesting fields of each section are represented in the Tables 
+\ref{table:user}, \ref{table:page}, \ref{table:revision}. In the caption are present, if
+needed, the descriptions of the fields.
 
 \begin{table}[H]
     \centering
     \ra{1.2}
     \begin{tabularx}{\columnwidth}{@{}Xccccc@{}}
         \midrule
-        \textbf{id} & \textbf{text} & \textbf{groups} & \textbf{is\_anonymous} & \textbf{registration} & \textbf{revision\_count}\\ \toprule
+        \textbf{id} & \textbf{username} & \textbf{groups} & \textbf{is\_anonymous} & \textbf{registration} & \textbf{revision\_count}\\ \toprule
         42081 & Checco & autopatrolled & False & 2006-02-10 14:52:44.0 & 10479 \\
 
          \bottomrule
     \end{tabularx}
-    \caption{data about user that made the revision}
+    
+    \caption{Data about the user who did the revision, the   \textit{groups} field helps to
+     identify if the user is an admin, the \textit{revision\_count} is needed to calculate complex metrics like M and G. \label{table:user}}
 \end{table}
 
 
@@ -83,7 +92,9 @@ In this analysis the only revision events are interesting, there are 68 fields d
 
          \bottomrule
     \end{tabularx}
-    \caption{data about the page where the revision is made}
+    
+    \caption{Data about about the page where the revision took place,  the \textit{namespace} field is used
+    to filter only the revisions because we are only interested in articles, i.e., the actual encyclopedia. \label{table:page}}
 \end{table}
 
 \begin{table}[H]
@@ -97,45 +108,63 @@ In this analysis the only revision events are interesting, there are 68 fields d
 
          \bottomrule
     \end{tabularx}
-    \caption{data about the revision}
+    
+    \caption{Data about the revision itself, we are able to identify if the revision is reverting another
+    one, if it is been reverted and who is the reverter. \label{table:revision} }
 \end{table}
 
 
+\begin{table}[H]
+    \centering
+    \ra{1.2}
+    \begin{tabularx}{\columnwidth}{@{}Xc@{}}
+        \midrule
+        \textbf{language} & \textbf{size}\\ \toprule
+        English & 540 GB \\
+        Spanish & 72 GB \\
+        Italian & 54 GB \\
+        Catalan & 12 GB \\
+
+         \bottomrule
+    \end{tabularx}
+    
+    \caption{Size of the dataset in different languages. \label{table:datasetsize}}
+\end{table}
+
 \section{Definitions}
-It is useful to define some terms that will be used different times
-
-\newtheorem{definition}{definition}
-\begin{definition}
+It is worth defining some terms that will be used several times in the discussion.
+\newtheorem{Definition}{Definition}
+\begin{Definition}
     (Revert) On Wikipedia, reverting means undoing or otherwise negating the effects of one or more edits,
-    which results in the page (or a part of it) being restored to a previous version. 
-\end{definition}
+    which results in the page (or a part of it) being restored to a previous version. % TODO: citare il sito 
+\end{Definition}
 
-\begin{definition}
-    (Revert chain) On a Wikipedia page, a revert chain happens when an edit which reverts an edit is in turn reverted.
-\end{definition}
+\begin{Definition}
+    (Revert chain) On a Wikipedia page, a revert chain occurs when an edit that reverts an edit is itself reverted.
+\end{Definition}
 
-\begin{definition}
+\begin{Definition}
     (Mutual revert) A “mutual revert” is recognized if a pair of editors (x, y) is observed once with x and once with y as the reverter~\cite{Yasseri2014}.
-\end{definition}
+\end{Definition}
 
-\begin{definition}
-    (Editor weight) The weight of an editor x is defined as the number of edits N performed by him or her.
-\end{definition}
+\begin{Definition}
+    (Editor weight) The weight of an editor x is defined as the number of edits N performed by him or her~\cite{Yasseri2014}.
+\end{Definition}
 
-\begin{definition}
-    (Mutual revert weight) The weight of a mutually reverting pair MW is defined as the minimum of the weights of the two editors.
-\end{definition}
+\begin{Definition}
+    (Mutual revert weight) The weight of a mutually reverting pair MW is defined as the minimum of the weights of the two editors~\cite{Yasseri2014}.
+\end{Definition}
 
-\begin{definition}
+\begin{Definition}
     (Chain weight) The weight of a revert chain CW is defined as the minimum of the weights of the editors involved in the chain.
-\end{definition}
+\end{Definition}
 
 
 \section{Metrics}
-Two complex controversiality metrics have been computed in this study: the first one,M, is the state of the
-art metric introduced by Yasseri \textit{et al.} which give us a score of the controversiality of the page
-based on mutual reverts. The second one that we designed, called G, is very similar to M, but
-instead of using mutual reverts it uses revert chains to evaluate the controversy of the page  
+Two complex controversiality metrics have been computed in this study: the first one, M, is the state of the
+art metric introduced by Yasseri \textit{et al.}~\cite{Yasseri2014} which give us a score of the controversiality of the page
+based on the presence mutual reverts. The second one that we designed, called G, is very similar to M, but
+instead of using mutual reverts, it uses revert chains to evaluate the controversiality of the page.  
 
 \subsection{M}
 The controversiality M of an article is defined by summing the weights of all mutually reverting
@@ -147,8 +176,8 @@ E involved in the article.
 \end{equation}
 
 \subsection{G}
-The controversiality G of an article or user is defined by summing the weights off all the chains
-there are in a page or a user is involved, and multiplying by the total number of editors N involved in at least one chain.
+The controversiality G of an article is defined by summing the weights off all the chains
+there are on a page and multiplying by the total number of editors N involved in at least one chain.
 
 \begin{equation}
     G = N \sum_{all\ revert\ chains} CW
