@@ -1,1 +1,34 @@
 \chapter{Infrastacture}
+all the code in available on Github, there is an onrganiziation called Wiki. in which every team
+member commeted theure code so we can gather all this in one place 
+for this work we mostly used python. The code has been hosted on the Unitn cricca server 
+\subsection{Multi Language}
+All the dataset computed are the results of several python scripts launched singularly. All the work
+has been done using the italian wikipedia as example. Automatizing the process allow us to run all
+the scripts in different languages. For achieving this automatation we used a bash script which
+takes the language as parameters e.g ./generate\_dataset it takes the data from the WikiMedia history
+dumps in italian, create a folder "it" and all the subfolders needed and generate the dataset in the
+right place. the only requirements is that the dump is donwloaded  here the folder structure:  
+
+\dirtree{%
+.1 ita.
+.2 chains.
+.3 user.
+.4 wars.json.
+.3 page.
+.4 wars.json.
+.3 month.
+.4 page.tsv.
+.4 user.tsv.
+.3 page\_reg.
+.4 wars.json.
+.2 group.
+.3 user.
+.4 mutuals.tsv.
+.4 reverts.tsv.
+.4 all.tsv.
+.3 page.
+.4 mutuals.tsv.
+.4 reverts.tsv.
+.4 all.tsv.
+}

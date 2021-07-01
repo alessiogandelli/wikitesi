@@ -166,7 +166,7 @@ art metric introduced by Yasseri \textit{et al.}~\cite{Yasseri2014} which give u
 based on the presence mutual reverts. The second one that we designed, called G, is very similar to M, but
 instead of using mutual reverts, it uses revert chains to evaluate the controversiality of the page.  
 
-\subsection{M}
+\paragraph*{Controversiality M}
 The controversiality M of an article is defined by summing the weights of all mutually reverting
 editor pairs, excluding the topmost pair, and multiplying this number by the total number of editors
 E involved in the article.
@@ -175,7 +175,7 @@ E involved in the article.
     M = E   \sum_{all\ mutual\ reverts} MW
 \end{equation}
 
-\subsection{G}
+\paragraph*{Controversiality G}
 The controversiality G of an article is defined by summing the weights off all the chains
 there are on a page and multiplying by the total number of editors N involved in at least one chain.
 
