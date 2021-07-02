@@ -2,7 +2,10 @@
 
 Considering the huge dimension of the dataset and the fact that a large portion of its content was
 useless, smaller datasets have been computed with the aim of expediting the analysis even for future
-usages. The analysis was made based on the computed datasets. 
+usages. The analysis was made based on the computed datasets. These datasets can be computed for
+every language thanks to a bash script, in this way a multilingual analysis on the most
+controversial topics can be conducted in different locations.
+
 
 \bigskip
 
@@ -24,24 +27,38 @@ usages. The analysis was made based on the computed datasets.
 \bigskip
 
 \section{Computed Dataset}
-In the first skim only the revisions that were involved in a revert remained. This dataset, which
-schema is the same as the MediaWiki History Dumps, has been ordered by page and thanks to this
-screening, now the size of the dataset is ~10\% of the original. 
+After the first skimming, only the revisions involving a revert were left. This dataset, whose
+schema is the same as the MediaWiki History Dumps, has been sorted by both page and timestamp,the
+size is now \~10\% of the originaland thanks to this screening. To achieve this we went through the
+compressed dataset line by line decompressing it on the fly and saving in a file only the entries we
+were interested in. Due to this the amount of ram required is very small and so is the disk space
+since all data is compressed. For the sorting part, we used Unix sort, which is the most optimized
+way to sort a file like this.  
 
-From this filtered dataset have been computed several smaller datasets which can be divided into 2 modules: 
+From this filtered dataset have been computed several smaller datasets which can be divided into two modules: 
 
 \begin{itemize}
     \item Chains: in these datasets, the focus was on detecting revert chains in pages 
-    \item Group: in these datasets, the focus was on the number of reverts that users did or received basing on the groups ( admin, registered, anonymous).
+    \item Group: in these datasets, the focus was on the number of reverts that users did or received based on the groups ( admin, registered, anonymous).
 \end{itemize}
 
 \subsection{Chains}
-The data about revert chains were computed from the filtered dataset. The output is a JSON file, to
-each page corresponds a JSON object. For each page is saved the list of chains and some statistics.
-A chain has a start and an end date, a list of revisions, and the users involved. This dataset is
-way smaller than the initial so it's possible to browse the dataset in few seconds.  
-In the schema below there are all the fields in a page object. 
+The data about revert chains were computed from the compressed filtered dataset. Every time we used
+the filtered dataset we read it line by line, saving only the interesting information. The output
+is a JSON file, where each page corresponds a JSON object. For each page we save the list of chains
+and some statistics. A chain has a start and an end date, a list of revisions, and the users
+involved. This dataset is way smaller than the initial one so it is possible to browse the dataset
+in few seconds.\\
 
+
+To identify a chain we used a function called \textit{simple\_chains} that differs from another called
+\textit{complex\_chains} for the fact that the first one to identify a chain of revert considers only
+contiguous reverts. We decided to use the simple one because we are only interested in chains that
+occur in a short time span since that is where most of the discussions take place. If more than
+50\% of users involved in a chain are bots the chain is not saved. There are two versions of this
+dataset, one that considers anonymous users and one that does not. \\
+
+In the schema below there are all the fields in a page object. 
 \begin{verbatim}
     {
         "title": "Loligo_vulgaris", 
@@ -66,13 +83,21 @@ In the schema below there are all the fields in a page object.
 \end{verbatim}
 
 
-With regard to users, the object is very similar and it is computed from the JSON of the page. The
-only difference is that there is not the M field because it is only related to a page. G, instead,
-can be computed on a user considering every chain where it is the author of at least a revision.
+Regarding users, the object is very similar, but it is calculated differently. All the data we need
+is stored in the JSON pages. By analyzing that file you can extract all the chains in which a user
+has been involved and then calculate statistics in a similar way as for pages. Using this dataset
+allow us to compute this dataset 10 times faster.  
 
-The data is also been computed monthly, the schema is simplier than the JSON one and this allow us
-to save it in a TSV using only a row for each month. Instead of saving all the data about the chain
-it is saved the number of chains which ar longer than 5,7,9.
+The only difference is that the M field is missing because it is only related to a page. The field G, instead,
+can be computed on a user considering every chain where it is the author of at least a revision.\\
+
+The dataset was also calculated monthly for both users and pages, the schema is simpler than the
+JSON and this allows us to save it in a TSV using only one row for each month. Instead of saving
+all the data about the chain, we save the number of chains that are longer than 5,7,9. In Table
+\ref{table:chainsPagemonth} there is a sample page entry. To do this we have processed the
+JSON database one page (or user) at a time by dividing by month. We counted the chains per month basing
+on the start date of the chain.   
+
 \begin{table}[H]
     \centering
     \ra{1.2}
@@ -81,10 +106,10 @@ it is saved the number of chains which ar longer than 5,7,9.
         \textbf{title} & \textbf{year\_month} & \textbf{nchain} & \textbf{nrev} & \textbf{mean} & \textbf{longest} & \textbf{$\geq$ 5} & \textbf{$\geq$ 7} & \textbf{$\geq$ 9} & \textbf{G}\\ \toprule
         Loligo\_vulgaris & 2020-10 & 1 & 15 & 3.0 & 3 & 0 & 0 & 0 & 0\\
         
-         \bottomrule
+        \bottomrule
     \end{tabularx}
     
-    \caption{entry of the mothly tsv \label{table:chainsPage}}
+    \caption{entry of the mothly tsv \label{table:chainsPagemonth}}
 \end{table}
 
 
@@ -94,10 +119,12 @@ are able to track the habits of the users allowing us to understand, for example
 editing Wikipedia after several reverts from admins. Detecting these kinds of patterns is useful for
 community health: a user can be warned if its behavior could lead to a drop-off. The groups to which
 users can belong are: 
+
+
 \begin{itemize}
-    \item Admin (sysop): can perform certain actions like blocking users and editingprotected pages, 
+    \item Admin (sysop): can perform certain actions like blocking users and editing protected pages, 
     \item Registered: are logged in at the time of the edit, 
-    \item Anonymous: are notlogged in and their username is their IP address(it is not possible to match an IP with a user
+    \item Anonymous: are not logged in and their username is their IP address(it is not possible to match an IP with a user
         because the IP can change over time).
 \end{itemize}
 
@@ -110,17 +137,22 @@ this could be a sign that something is wrong with the page.
 
 
 
-The notation \textit{adm\_reg} in table \ref{table:revertpage} refers to the number of admin that performed a
+The notation \textit{adm\_reg} in Table \ref{table:revertpage} refers to the number of admin that performed a
 revert to a registered user (similarly with \textit{adm\_adm, reg\_adm, reg\_reg} ).\\
 
-The notation \textit{mut\_ra} in the table \ref{table:mutualpage} refers to the number of mutual reverts
+The notation \textit{mut\_ra} in the Table \ref{table:mutualpage} refers to the number of mutual reverts
 where the users involved are a registered one and an admin, the order does not matter, in fact, there is
 no \textit{mut\_ar} that would have the same value.\\
 
 
-Since the focus was on experienced users only pairs involving registered and admins were calculated.
-For having an idea of the volume of the reverts made by anon it's been saved the number of reverts
-that were made by anonymous (\textit{anon}) and not (\textit{not\_anon}).
+Since the focus was on experienced users, only pairs involving registered and admins were computed.
+For having an idea of the volume of the reverts made by anon we saved the number of reverts
+that were made by both anonymous (\textit{anon}) and not anonymous (\textit{not\_anon}).
+
+To calculate these metrics we use simple variables that are incremented as you scroll through the filtered dataset
+and initialized each time a new page is started. For both users and pages, we have discarded
+edits that have been marked as vandalism and edits made by bots.
+
 \begin{table}[H]
     \centering
     \ra{1.2}
@@ -134,6 +166,12 @@ that were made by anonymous (\textit{anon}) and not (\textit{not\_anon}).
     
     \caption{entry of the revert page tsv \label{table:revertpage}}
 \end{table}
+
+In the case of mutual reverts the procedure is similar but a bit more complex because we need to
+store the information of the whole page in order to correctly detect all the mutual reverts. 
+The most efficient way to save such information is the use of dictionaries where we saved for each
+reverter the list of users who reverted and then at page processing time we computed a list of pairs
+that were used to calculate the other metrics.
 
 \begin{table}[H]
     \centering
@@ -149,11 +187,22 @@ that were made by anonymous (\textit{anon}) and not (\textit{not\_anon}).
 \end{table}
 
 \paragraph*{User}
-It's useful also to have the data aggregated by user. The data for the reverts can be retrieved from
-the filtered dataset sorted by timestamp. The data about reverts is gathered and processed month by
-month, this allowed us to save for each user-month the number of reverts made and received divided by group.
+It is useful also to have the data aggregated by user. Reverts data can be retrieved from the
+filtered dataset sorted by timestamp. The data about reverts is gathered and processed month by
+month, this allowed us to save for each user-month the number of reverts made and received divided
+by group.
+
+In this case, the dataset is browsed and processed month by month. When a user performs a revert the
+dataset gives us the id of the revision it has reverted but not the id of the user it has
+reverted. To solve this problem so we had to save the info in different dictionaries: \textit{reverters, editor, groups}, 
+\bigskip
+
+reverters[username] gives us the list of the revision it reverted. \\
+\indent editor[revision\_id] gives us the user who performs that edit. \\
+\indent groups[username] gives us the groups a user belongs.\\
 
 
+Combining this dictionaties we have all the data necessary to compute all the metrics we need.
 \begin{table}[H]
     \centering
     \ra{1.2}
@@ -176,12 +225,13 @@ month, this allowed us to save for each user-month the number of reverts made an
 \end{table}
 
 
-The mutual revert one was harder to achieve because for saving the information about mutual reverts
-we need the dataset sorted by pages, but for having the data by user we should use the one sorted
-by timestamp. We solved this problem by saving in the dataset the user-page-month, so the information
-about mutual reverts a user performed in a specific month in a specific page. This led to a larger dataset but with a
-higher level of information: it is easy to post-process the dataset by grouping by user or by month
-to have one entry per user or one entry per month, respectively. 
+The mutual revert analysis was more difficult to implement because to save the information about
+mutual reverts we need the dataset sorted by pages, but to get the data by user we should use the
+one sorted by timestamp. We solved this problem by storing the user-page-month in the dataset, so
+the information about the mutual returns of a user involved in a specific month on a specific page.
+This led to a larger dataset but with a higher level of information: it is easy to post-process the dataset
+by grouping by user or by month to have one entry per user or one entry per month,
+respectively. 
 
 
 \begin{table}[H]
@@ -202,21 +252,6 @@ to have one entry per user or one entry per month, respectively.
 
 
 
-\section{Analysis}
-The second step of this work was the analysis of the dataset just generated. Thanks to the structure
-and the heavy pruning analyzing these datasets is fast, This allows us to have a better workflow
-without interruptions. We analyzed the data in 2 ways: a descriptive statistic and an interactive
-one.
-\paragraph{Descriptive}
-For each dataset there is a script that runs and plots various statistics using the python libraries
-Pandas and Matplotlib. There are 2 types of output: plots and rankings. 
-Plots are useful to understand the trend from a more comprehensive point of view month by month.  
-Rankings instead are used to see in a more specific way the pages/users ordered by one of the
-metrics previously computed 
 
-\paragraph{Interactive}
-The other group members and I decided to make available online an interactive dashboard. The idea is
-that everyone can change a few parameters and see how the metrics are performing in a personalized
-way. To achieve this we uploaded our dataset on a database and thanks to an innovative way to retrieve
-data (grapQL) we can display it on a website.
+
 
