@@ -1,6 +1,6 @@
 \chapter{Methods}
 
-Considering the huge dimension of the dataset and the fact that a large portion of its content was
+Considering the huge size of the dataset and the fact that a large portion of its content was
 useless, smaller datasets have been computed with the aim of expediting the analysis even for future
 usages. The analysis was made based on the computed datasets. These datasets can be computed for
 every language thanks to a bash script, in this way a multilingual analysis on the most
@@ -29,7 +29,7 @@ controversial topics can be conducted in different locations.
 \section{Computed Dataset}
 After the first skimming, only the revisions involving a revert were saved. This dataset, whose
 schema is the same as the MediaWiki History Dumps, has been sorted by both page and timestamp, and
-thanks to this screening, the size is now \thicksim 10\% of the original. In order to achieve this result,
+thanks to this screening, the size is now ~{10\%} of the original. In order to achieve this result,
 the compressed dataset has been decompressed line by line on the fly and only the entries we were
 interested in have been saved in a file. Therefore only a small amount of RAM and disk space is
 required since all data is compressed. For the sorting part the most optimized way to sort a file,
@@ -39,12 +39,12 @@ From this filtered dataset several smaller datasets have been computed, and thes
 
 \begin{itemize}
     \item Chains:  the focus was on detecting revert chains in the pages 
-    \item Group:  the focus was posed on the number of reverts that users made or received based on the groups they belong to( admin, registered, anonymous).
+    \item Group:  the focus was posed on the number of reverts that users made or received based on the groups they belong to (admin, registered, anonymous).
 \end{itemize}
 
 \subsection{Chains}
 The data concerning revert chains have been computed from the compressed filtered dataset. Every
-time the filtered dataset was analyzed it was read line by line and only the interesting
+time the filtered dataset was analyzed, it was read line by line and only the interesting
 pieces of information were saved. The output is a JSON file, in which every page corresponds to a JSON object.
 A list of chains and some statistics have been saved for each page. Every chain has a start and an end date, a
 list of revisions, and the name of the involved users. The resulting dataset is way smaller than the initial one so it is
@@ -91,9 +91,9 @@ Using this dataset it can be computed 10 times faster.
 The only difference is that the M field is missing because it is only related to a page, while the G field
 can be computed on a user considering every chain in which it is the author of at least one revision.\\
 
-The dataset was also calculated monthly for both users and pages, the schema is simpler than the
+The dataset was also computed monthly for both users and pages, the schema is simpler than the
 JSON one and this allows us to save it in a TSV using only one row for each month. Instead of saving
-all the data regarding the chain, only the numbers of chains longer more than 5,7,9 were saved. In
+all the data regarding the chain, only the numbers of chains longer more than 5, 7, 9 were saved. In
 Table \ref{table:chainsPagemonth} there is a sample page entry. In order to do this, the JSON
 dataset has been processed one page (or user) at a time, after it was divided by month. The chains
 were counted per month basing on the start date of the chain.   
@@ -109,7 +109,7 @@ were counted per month basing on the start date of the chain.
         \bottomrule
     \end{tabularx}
     
-    \caption{entry of the mothly tsv \label{table:chainsPagemonth}}
+    \caption{Entry of the mothly tsv \label{table:chainsPagemonth}}
 \end{table}
 
 
@@ -149,7 +149,7 @@ Since the focus was on experienced users, only pairs involving registered and ad
 For having an idea of the volume of the reverts made by anonymous we saved the number of reverts
 that were made by both anonymous (\textit{anon}) and not anonymous (\textit{not\_anon}).
 
-To calculate these metrics simple variables have been used. They have been incremented, if
+To compute these metrics simple variables have been used. They have been incremented, if
 necessary, at each entry of the dataset and they have been initialized each time a new page 
 started. For both users and pages, we have discarded edits that have been marked as vandalism and
 edits made by bots.
@@ -165,7 +165,7 @@ edits made by bots.
          \bottomrule
     \end{tabularx}
     
-    \caption{entry of the revert page tsv \label{table:revertpage}}
+    \caption{Entry of the revert page tsv \label{table:revertpage}}
 \end{table}
 
 Mutual reverts are not as easy to compute as reverts.We need to store information of the whole page
@@ -185,7 +185,7 @@ computed.
          \bottomrule
     \end{tabularx}
     
-    \caption{entry of the mutual page TSV \label{table:mutualpage}}
+    \caption{Entry of the mutual page TSV \label{table:mutualpage}}
 \end{table}
 
 \paragraph*{User}
@@ -221,7 +221,7 @@ Combining this dictionaries we have all the data necessary to compute all the me
          \bottomrule
     \end{tabularx}
     
-    \caption{entry of the mutual page tsv \label{table:revks}}
+    \caption{Entry of the mutual page tsv \label{table:revks}}
 \end{table}
 
 
@@ -245,7 +245,7 @@ grouping by user or month to have one entry per user or one entry per month, res
     \end{tabularx}
 
     
-    \caption{entry of the mutual page tsv \label{table:rjevks}}
+    \caption{Entry of the mutual page tsv \label{table:rjevks}}
 \end{table}
 
 
