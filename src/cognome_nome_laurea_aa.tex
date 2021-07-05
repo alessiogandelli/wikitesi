@@ -17,6 +17,7 @@
 \usepackage{tabularx}
 \usepackage{dirtree}
 
+
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
@@ -61,8 +62,8 @@
       \renewcommand{\cleardoublepage}{} 
       %\renewcommand{\clearpage}{} 
     % commentato altrimenti si rompe !!!!!!!!!!!!!!!!!!!!!!!!
-      %\titleformat{\chapter}
-       % {\normalfont\Huge\bfseries}{\thechapter}{1em}{}
+      \titleformat{\chapter}
+        {\normalfont\Huge\bfseries}{\thechapter}{1em}{}
         
       \titlespacing*{\chapter}{0pt}{0.59in}{0.02in}
       \titlespacing*{\section}{0pt}{0.20in}{0.02in}
@@ -88,11 +89,11 @@
     \bibliographystyle{plain}
     \bibliography{./chapters/bibliography/biblio.bib}
 
-    \titleformat{\chapter}
-        {\normalfont\Huge\bfseries}{Allegato \thechapter}{1em}{}
+  %  \titleformat{\chapter}
+   %     {\normalfont\Huge\bfseries}{Allegato \thechapter}{1em}{}
     % sezione Allegati - opzionale
-    \appendix
-    \input{./chapters/allegati/allegati}
+   % \appendix
+    %\input{./chapters/allegati/allegati}
 
 \end{document}
 

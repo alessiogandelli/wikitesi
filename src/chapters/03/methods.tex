@@ -29,7 +29,7 @@ controversial topics can be conducted in different locations.
 \section{Computed Dataset}
 After the first skimming, only the revisions involving a revert were saved. This dataset, whose
 schema is the same as the MediaWiki History Dumps, has been sorted by both page and timestamp, and
-thanks to this screening, the size is now ~{10\%} of the original. In order to achieve this result,
+thanks to this screening, the size is now $\sim 10\%$ of the original. In order to achieve this result,
 the compressed dataset has been decompressed line by line on the fly and only the entries we were
 interested in have been saved in a file. Therefore only a small amount of RAM and disk space is
 required since all data is compressed. For the sorting part the most optimized way to sort a file,
@@ -103,22 +103,21 @@ were counted per month basing on the start date of the chain.
     \ra{1.2}
     \begin{tabularx}{\columnwidth}{@{}Xcccccccccc@{}}
         \midrule
-        \textbf{title} & \textbf{year\_month} & \textbf{nchain} & \textbf{nrev} & \textbf{mean} & \textbf{longest} & \textbf{$\geq$ 5} & \textbf{$\geq$ 7} & \textbf{$\geq$ 9} & \textbf{G}\\ \toprule
-        Loligo\_vulgaris & 2020-10 & 1 & 15 & 3.0 & 3 & 0 & 0 & 0 & 0\\
+        \textbf{title} & \textbf{year\_month} & \textbf{n of chain} & \textbf{n rev in chain} & \textbf{mean} & \textbf{longest} & \textbf{$\geq$ 5} & \textbf{$\geq$ 7} & \textbf{$\geq$ 9} & \textbf{G}\\ \toprule
+        Franz\_Kafka & 2018-11 & 11 & 113 & 10.3 & 51 & 4 & 4 & 3 & 0\\
         
         \bottomrule
     \end{tabularx}
     
-    \caption{Entry of the mothly tsv \label{table:chainsPagemonth}}
+    \caption{Entry of the mothly TSV \label{table:chainsPagemonth}}
 \end{table}
 
 
 \subsection{Group}
 Another interesting part of this study was focusing on the category a user belongs. Thanks to this
-we were able to track the habits of the users, and this allowed us to understand, for example, if
+we were able to track the habits of the users, and this can allow us to understand, for example, if
 someone stopped editing Wikipedia after several reverts from admins. Detecting these kinds of
-patterns is useful for community health: a user can be warned if its behavior could lead to a
-drop-off. The groups to which users can belong are: 
+patterns is useful for community health. The groups to which users can belong are: 
 
 
 \begin{itemize}
@@ -160,32 +159,32 @@ edits made by bots.
     \begin{tabularx}{\columnwidth}{@{}Xcccccccccc@{}}
         \midrule
         \textbf{id} & \textbf{page} & \textbf{year\_month} & \textbf{adm\_adm} & \textbf{adm\_reg} & \textbf{reg\_adm} & \textbf{reg\_reg} & \textbf{anon} & \textbf{not\_anon}\\ \toprule
-        1 & pagina & 2020-10 & 13 & 12 & 42 & 0 & 0 & 0 \\
+        1 & AS\_Roma & 2020-10 & 14 & 245 & 36 & 308 & 1493 & 603 \\
         
          \bottomrule
     \end{tabularx}
     
-    \caption{Entry of the revert page tsv \label{table:revertpage}}
+    \caption{Entry of the revert page TSV. \label{table:revertpage}}
 \end{table}
 
-Mutual reverts are not as easy to compute as reverts.We need to store information of the whole page
+Mutual reverts are not as easy to compute as reverts. We need to store information of the whole page
 in order to correctly detect all the mutual reverts.
 
 The most efficient way to save such information is using dictionaries. For each reverter has been
-saved the list of users who reverted. At the time of processing the page a list of pairs has been
-computed.
+saved the list of users who reverted. At the time of processing the page the saved information
+allowed us to compute mutual revert pairs.
 
 \begin{table}[H]
     \centering
     \ra{1.2}
-    \begin{tabularx}{\columnwidth}{@{}Xcccccccccc@{}}
+    \begin{tabularx}{\columnwidth}{@{}Xcccccccc@{}}
         \midrule
-        \textbf{id} & \textbf{page} & \textbf{year\_month} & \textbf{mut\_aa} & \textbf{mut\_ra}  & \textbf{mut\_rr} & \textbf{anon} & \textbf{not\_anon}\\ \toprule
-        1 & pagina & 2020-10 & 13 & 12 & 42  & 0 & 0 \\
+        \textbf{id} & \textbf{page} & \textbf{year\_month} & \textbf{M}& \textbf{mut\_aa} & \textbf{mut\_ra}  & \textbf{mut\_rr} & \textbf{anon} & \textbf{not\_anon}\\ \toprule
+        1 & Giorgio\_Napolitano & 2020-07 & 7681159 & 0 & 4  & 3 & 61 & 7 \\
          \bottomrule
     \end{tabularx}
     
-    \caption{Entry of the mutual page TSV \label{table:mutualpage}}
+    \caption{Entry of the mutual revert page TSV. \label{table:mutualpage}}
 \end{table}
 
 \paragraph*{User}
@@ -221,7 +220,7 @@ Combining this dictionaries we have all the data necessary to compute all the me
          \bottomrule
     \end{tabularx}
     
-    \caption{Entry of the mutual page tsv \label{table:revks}}
+    \caption{Entry of the mutual user TSV. \label{table:revks}}
 \end{table}
 
 
@@ -239,13 +238,13 @@ grouping by user or month to have one entry per user or one entry per month, res
     \begin{tabularx}{\columnwidth}{@{}XXXXXXX@{}}
         \midrule
         \textbf{user} & \textbf{group} & \textbf{page\_name}& \textbf{year\_month} & \textbf{mut\_adm}& \textbf{mut\_reg}& \textbf{mut\_not}\\ \toprule
-        khalu & adm & pagina & 2020-10 & 13 & 12 & 4 \\
+        khalu & adm & Barcelona & 2020-10 & 13 & 12 & 4 \\
         
          \bottomrule
     \end{tabularx}
 
     
-    \caption{Entry of the mutual page tsv \label{table:rjevks}}
+    \caption{Entry of the mutual user TSV. \label{table:rjevks}}
 \end{table}
 
 

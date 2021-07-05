@@ -22,27 +22,28 @@ There are several tools anyone can use to explore the revision history:
         some statistics about the edits of the page like the total number of revisions (Fig \ref{fig:mobilehistory}). 
     \item Website: it is possible to compare two versions with an interactive tool that shows
         the progress of the modified page: each change corresponds to a bar indicating the number of
-        bytes added or removed from the revision(Fig. \ref{fig:history}).
+        bytes added or removed from the revision (Fig. \ref{fig:history}).
 \end{itemize}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.35\textwidth]{./chapters/02/assets/mobile_history.jpg}
-    \caption{Mobile interactive visualization of the history}
+    \caption{Mobile interactive visualization of the history.}
     \label{fig:mobilehistory}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{./chapters/02/assets/history.png}
-    \caption{Interactive visualization of the history}
+    \caption{Interactive visualization of the history.}
     \label{fig:history}
 \end{figure}
 
 
 \section{Dataset}
-There are two datasets that store info about Wikipedia edits made available from the WikiMedia
-Foundation: a) the MediaWiki History and b) the MediaWiki History Dumps
+There are two datasets that store information about Wikipedia edits made available from the WikiMedia
+Foundation: a) the MediaWiki History\footnote{\url{https://wikitech.wikimedia.org/wiki/Analytics/Data_Lake/Edits/MediaWiki_history}} 
+and b) the MediaWiki History Dumps \footnote{\url{https://wikitech.wikimedia.org/wiki/Analytics/Data_Lake/Edits/Mediawiki_history_dumps}}
 
 
 The only difference other than the format (XML the former, TSV the latter) is that the former has the
@@ -61,8 +62,8 @@ In this analysis only revision events are of interest, there are 68 fields but o
 needed. The entry could be divided in different sections: one section with general information of
 the revision like timestamp and comment, a section with information about the user who did the
 revision, one for the page where the revision was made, and the last one with more specific
-information about the revision. The most interesting fields of each section are represented in the Tables 
-\ref{table:user}, \ref{table:page}, \ref{table:revision}. In the caption are present, if
+information about the revision. The most relevant fields of each section are represented in the Tables 
+\ref{table:user}, \ref{table:page}, \ref{table:revision}.The caption include, if
 needed, the descriptions of the fields.
 
 \begin{table}[H]
@@ -71,13 +72,13 @@ needed, the descriptions of the fields.
     \begin{tabularx}{\columnwidth}{@{}Xccccc@{}}
         \midrule
         \textbf{id} & \textbf{username} & \textbf{groups} & \textbf{is\_anonymous} & \textbf{registration} & \textbf{revision\_count}\\ \toprule
-        42081 & Checco & autopatrolled & False & 2006-02-10 14:52:44.0 & 10479 \\
+        42081 & Checco & autopatrolled & False & 2006-02-10 14:52:44.0 & 10420 \\
 
          \bottomrule
     \end{tabularx}
     
-    \caption{Data about the user who did the revision, the   \textit{groups} field helps to
-     identify if the user is an admin, the \textit{revision\_count} is needed to calculate complex metrics like M and G. \label{table:user}}
+    \caption{Data about the user who did the revision. The \textit{groups} field helps to
+     identify if the user is an admin. The \textit{revision\_count} is needed to calculate complex metrics like M and G. \label{table:user}}
 \end{table}
 
 
@@ -93,8 +94,8 @@ needed, the descriptions of the fields.
          \bottomrule
     \end{tabularx}
     
-    \caption{Data about about the page where the revision took place,  the \textit{namespace} field is used
-    to filter only the revisions because we are only interested in articles, i.e., the actual encyclopedia. \label{table:page}}
+    \caption{Data about about the page where the revision took place. The \textit{namespace} field is used
+    to filter only the revisions from the namespace 0, i.e., the actual encyclopedia. \label{table:page}}
 \end{table}
 
 \begin{table}[H]
@@ -161,7 +162,7 @@ It is worth defining some terms that will be used several times in the discussio
 
 
 \section{Metrics}
-Two complex controversiality metrics have been computed in this study: the first one, M, is the state of the
+Two complex controversiality metrics have been computed in this study: the first one, M, is a state of the
 art metric introduced by Yasseri \textit{et al.}~\cite{Yasseri2014} which give us a score of the controversiality of the page
 based on the presence mutual reverts. The second one that we designed, called G, is very similar to M, but
 instead of using mutual reverts, it uses revert chains to evaluate the controversiality of the page.  
@@ -176,7 +177,7 @@ E involved in the article.
 \end{equation}
 
 \paragraph*{Controversiality G}
-The controversiality G of an article is defined by summing the weights off all the chains
+The controversiality G of an article is defined by summing the weights of all the chains
 there are on a page and multiplying by the total number of editors N involved in at least one chain.
 
 \begin{equation}

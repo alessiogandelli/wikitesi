@@ -1,83 +1,94 @@
 \chapter{Results and Discussion}
 
-The second step of this work was the analysis of the dataset just generated. Thanks to the structure
-and the heavy pruning analyzing these datasets is fast, This allows us to have a better workflow
-without interruptions. We analyzed the data in two ways: a descriptive statistic and an interactive
+The second step of this work was the analysis of the generated datasets. Thanks to the structure
+and the heavy pruning the analysis of these datasets was fast, this allowed us to have a better workflow
+without any interruption. We analyzed the data in two ways: a descriptive statistic and an interactive
 one.
 \paragraph*{Descriptive}
-For each dataset there is a script that runs and plots various statistics using the python libraries
+For each dataset, there is a script that plots various statistics using the python libraries
 Pandas and Matplotlib. There are two types of output: plots and rankings. 
-Plots are useful to understand the trend from a more comprehensive point of view month by month.  
-Rankings instead are used to see in a more specific way the pages/users ordered by one of the
+Plots are useful to understand the trend from a more comprehensive point of view and on a monthly base.  
+Rankings are instead used to see the pages/users ordered in a more specific way by one of the
 metrics previously computed. 
 \paragraph*{Interactive}
-We decided to make available online an interactive dashboard. The idea is
+We decided to make an interactive dashboard available online. The idea is
 that everyone can change a few parameters and see how the metrics are performing in a personalized
 way. To achieve this we uploaded our dataset on a database and thanks to an innovative way to retrieve
 data (grapQL) we can display it on a website. 
 
-\paragraph*{Generic }
-as we can see here the biggest part of the pages has 0 or 1 revert, the zero is calzulated
-subtracting fromt he number declared by wikipedia 
+\paragraph*{Generic statistics }
+As we can see here the biggest part of the pages has 0 reverts. Since filtering the Wikimedia
+History Dumps removed all the pages with 0 reverts, this field has been computed by subtracting, from the
+total number of pages, a value that is available on Wikipedia \footnote{\url{https://en.wikipedia.org/wiki/Special:Statistics}}.
+
 \begin{table}[H]
     \centering
     \ra{1.2}
     \begin{tabularx}{\columnwidth}{@{}Xll@{}}
         \midrule
         \textbf{n\_reverts} & \textbf{n\_pages\_it} & \textbf{n\_pages\_ca}  \\ \toprule
-        1   & 186539& 32233 \\
-        2-4 & 122072& 15387 \\
-        5-9 & 45391& 4791 \\
-        10-99 & 47833& 3906 \\
-        100-999 & 4145& 84\\
+        0 & 1.296.915& 626,5326\\
+        1   & 186,539& 32,233 \\
+        2-4 & 122,072& 15,387 \\
+        5-9 & 45,391& 4,791 \\
+        10-99 & 47,833& 3,906 \\
+        100-999 & 4,145& 84\\
 
         \bottomrule
     \end{tabularx}
     
-    \caption{pages with more chains \label{table:reverts}}
+    \caption{Number of reverts for Italian and Catalan Wikipedia. \label{table:pagesmorechains}}
 \end{table}
 \section{Chains}
-Thanks to the analysis of the page chains we can have an overview of an entire Wikipedia in a language,
-discovering statistics like the mean lenght of chains or the longest one. Another aspect worth
-investigating is the relationship between alone reverts and reverts that are in a chain: more
-reverts in chains means more discussions, in this cases we could combine the data of other team
-members who analyzed the talk pages. While the pages chain are useful to have a less specific but
-wider view of the phenomenon, the users chain let us see if a specific user is involved in many
-chains and in which page is more active: in this sense we can define category of users: the ones who
-are active just in some topic or the other who reverts an all wikipedia. 
+Thanks to the analysis of the page chains we can have an overview of an entire Wikipedia in a
+language, discovering statistics like the mean length of chains or the longest one. Another aspect
+worth investigating was the relationship between solitary reverts and reverts that are in a chain: more
+reverts in chains mean more discussions. In cases like these combining the data of the other team
+members who analyzed the talk pages could be useful to better understand the dynamics. While the chains in
+the pages are useful to have a less specific but wider view of the phenomenon, studying the chains a
+user joined lets us see if a specific user is involved in many chains and in which pages is more
+active. In this sense, we can define different categories of users: the ones who are active just in
+some topic or the others who revert on all Wikipedia. \\
 
-More interesting are the metrics by month, we can plot the trend of reverts in a page and see if it
-is always controversial or just in a specific storic moment related to something happened in the
-world. Plotting the metrics year by year allow us to understand the global activity of the users on
-wikipedia. Regarding users, we can define the lifecycle of a users and see when is more active and
-combining the data with the other team members we can say if its decrese of revisions it is related
-to a discussion.
+Monthly metrics are even more interesting: we can plot the trend of reverts on a page and see if it
+is always controversial or just in a specific historical moment related to something that happened
+in the world. Plotting the metrics year by year allows us to understand the global activity of the
+users on Wikipedia. We can define the lifecycle of a user and see when it is more active, and if
+its decrease of revisions is related to a discussion.\\
+
+
+In Table \ref{table:generalstats} there is an overview of the number of solitary reverts and
+reverts which belong to a chain in the Wikipedia of different languages. The ratio between the
+number of reverts that are in a chain and the ones that are not is a useful indicator of how much
+the users are committed. In the Catalan Wikipedia this ratio is higher and we could refer this to
+the patriotism that brought more attention on certain topics that we will explore later in Table
+\ref{table:morechains}.
 
 \begin{table}[H]
     \centering
     \ra{1.2}
-    \begin{tabularx}{\columnwidth}{@{}Xrrr@{}}
+    \begin{tabularx}{\columnwidth}{@{}Xrrrrr@{}}
         \midrule
-        \textbf{len}& \textbf{nrev} & \textbf{nrevinchain} & \textbf{percentage} \\ \toprule
-        it & 7712039 & 850020 &  11 \\
-        es & 11539552 & 1065618 & 9 \\
-        ca & 355251 & 56280 & 15 \\
-        
-       
-        
-         \bottomrule
+        \textbf{len}& \textbf{revisions} & \textbf{reverts} & \textbf{reverts on edits} & \textbf{reverts in chain} & \textbf{\% in chain} \\ \toprule
+        en &1,027,188,756&66,147,314&6.4\%&6,144,948& 10\%\\
+        es &136,318,137& 11,539,552&8.4\%& 1,065,618 & 9\% \\
+        it &121,362,136& 7,712,039 &6.4\% & 850,020 &  11\% \\
+        ca &27,657,030& 355,251 & 1.3\%& 56,280 & 15\% \\
+    
+        \bottomrule
     \end{tabularx}
     
-    \caption{user sorted by mean \label{table:mean}}
+    \caption{Number of reverts in Wikipedia in Spanish, Italian, and Catalan. \label{table:generalstats}}
 \end{table}
 
 
 \subsection{Page}
-Here the page ranked by the number of chains in italian and catalan, we can see that 6/10 were
-football-related while in catalunya we can see, as expected, a stronger territorial belonging. It's
-interesting how in catalan , for people, the second surname is written in the title of the article
-but not in the spanish one. as we can see from there the biggest part of the spanish user ar from
-south america and they are interested in football
+In Table \ref{table:morechains} the pages are ranked by the number of chains in Italian, Catalan,
+and Spanish. In the Italian one six out of ten pages were football-related while in the catalan one
+we can see, as expected, a stronger territorial belonging, the Spanish ranking tells us that the
+main part of Spanish Wikipedia users are from Latin America and that they are interested in
+football. It is interesting to note how in the Catalan Wikipedia the second surname of the person which the
+article is about is written in the title of the article while in the Spanish one it is not.
 \begin{table}[H]
     \centering
     \ra{1.2}
@@ -98,43 +109,59 @@ south america and they are interested in football
          \bottomrule
     \end{tabularx}
     
-    \caption{pages with more chains \label{table:chainspage}}
+    \caption{Pages with more chains \label{table:morechains}}
 \end{table}
 
 
-Let's see more specifically the italian first one, serie\_A, if we analyze the history we can see
-that the biggest part of the chains, especially the longest, are caused by the number of championship won by Juventus \url{https://en.wikipedia.org/wiki/Calciopoli} 
-\begin{verbatim}
-    "title": Serie_A,
-    "revisions": [...] 
-    "n_chains": 195,
-    "n_reverts_in_chains": 756,
-    "n_reverts": 5291,
-    "mean": 3.9,
-    "longest": 15,
-    "G": 2205218,
-    "M": 9479660,
-    "lunghezze": {"3": 96, "4": 66, "5": 15, "6": 11,"7": 2,"8": 3,"10": 1,"15": 1}
-\end{verbatim}
+In the analysis of the longest chain, the scenario we face is different. The top topics are not
+sports but cinema, music and literature for Italian. But here the most fascinating things happen on
+the Catalan Wikipedia: we can see how the longest chains are all related to Navarra, doing a more
+specific research we can see that it is all related to the language used to identify cities, this is
+probably vandalism from some Spanish user who wanted to suppress the Basque language. These metrics
+cannot be used for detect problems in the community health but can let some sociopolitical
+issues inside a place with linguistic minorities emerge.
+\begin{table}[H]
+    \centering
+    \ra{1.2}
+    \begin{tabularx}{\columnwidth}{@{}Xllllll@{}}
+        \midrule
+        \textbf{id} & \textbf{title} & \textbf{longest it}& \textbf{title} & \textbf{longest ca} & \textbf{title} & \textbf{longest es} \\ \toprule
+        1 & Pino Rauti  & 114  & Roncal-Salazar & 81 & Alan  Jackson & 178\\
+        2 & Carlos Tévez & 66  & Tractat  d'Utrecht & 80 & A & 172\\
+        3 & Rogue  One & 64  & Gazteluberri & 76 & Consejo  Mundial  de  Boxeo & 140\\
+        4 & Rocky  Marciano & 64  &Comarca  de  Sangüesa& 71 & Guerra  anglo-española  (1625-1630) & 140\\
+        5 & Poeta  urbano & 58  &Comarca  d'Aoiz & 69 & Guerra  de  la  Independencia  Española& 137\\
+        6 & Paradisi  per  illusi & 55  & Comarca  de  Lumbier& 69 & Guerra  anglo-española  (1585-1604) & 121\\
+        7 & Kuromajo-san  ga  toru!  & 53  &Riu  Gor & 53 & Independencia  de  la  República  Dominicana & 107\\
+        8 & Matt  Dillo & 52 & Tudela & 51 & Kreutzberger & 100\\
+        9 & Aletheia  (album) & 52 & Igúzquiza& 50 & Dalas  Review & 99\\
+        10 & Franz  Kafka & 51  &Untziti & 48 & Bastille & 96\\
 
-pino rauti la piu lunga fottuto fascista di merda 
+
+         \bottomrule
+    \end{tabularx}
+    
+    \caption{Pages sorted by longest chains. \label{table:longestchain}}
+\end{table}
+
 
 \paragraph*{monthly}
-by analyzing the trend of the page (Barcelona) we can clearly see that even if there are a lot of chain
-the controversiality metric G growth mainly in one occasion, the reason is that in that chain are
-involved experienced users  so this metric is useful to detect biscussion between them.
+By analyzing the trend(Fig \ref{fig:chainsuser}) of the page (Barcelona in Catalan) we can clearly
+see that even if there are a lot of chains the controversiality metric G grows mainly on one
+occasion, the reason is that in that chain experienced users are involved so this metric is useful
+to detect discussion between them.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{./chapters/04/assets/chains_page.png}
-    \caption{G and the number of chains for Barcelona page  in catalan}
+    \caption{G and the number of chains for Barcelona page in Catalan.}
     \label{fig:chainsuser}
 \end{figure}
 
 \subsection{User}
 \paragraph*{wars}
-sorting by mean of the lenght of the chain joined the biggest part ore from anonymous user, because
-the longest chains usually are just details (like the number of championship of juve) that are
-continued until somebody is blocked.
+Table \ref{table:mean} ranks the users by the mean length of the chains they joined. All of them are anonymous users.
+The longest chains are usually about details (like, for example, the number of championships won by Juventus) that are
+continuously modified until the vandal is blocked.
 
 \begin{table}[H]
     \centering
@@ -151,11 +178,13 @@ continued until somebody is blocked.
          \bottomrule
     \end{tabularx}
     
-    \caption{user sorted by mean \label{table:mean}}
+    \caption{User sorted by mean length of the chains joined \label{table:mean}}
 \end{table}
 
-it is also possibile, given a user, to see see which are the pages in which is more active. we use
-the user who made more reverts in catalan wikipedia for this example, we will call him Juan
+It is also possible to see on which pages a given user joins more revert wars. Table
+\ref{table:pagesuser}  represents the pages on which the user, let us call him Juan, got involved in more chains in The Catalan
+Wikipedia. In this example, Juan is mainly interested in Catalan famous people
+like sportsmen and writers.
 
 \begin{table}[H]
     \centering
@@ -174,29 +203,28 @@ the user who made more reverts in catalan wikipedia for this example, we will ca
         9 & Jordi Sànchez i Zaragoza &  6 \\
         10 & Alfons Arús i Leita &  6\\
 
-        
          \bottomrule
     \end{tabularx}
     
-    \caption{user sorted by mean \label{table:mean}}
+    \caption{Top 10 pages by number of chain of Juan. \label{table:pagesuser}}
 \end{table}
 \paragraph*{monthly}
-given a user we can draw his revert activity
+Given a user we can draw its revert chain activity. 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./chapters/04/assets/chains_user_month.png}
-    \caption{number of chain by month of juan}
+    \caption{Number of chain by month of Juan}
     \label{fig:chainsusermonth}
 \end{figure}
 
 \section{Group}
-From the analysis of the groups we can define different ranking of pages using the number of reverts
-of each group, or given a page we can plot the trend of the edits by group and detect the pages in
-which admins are more interested. It is possibile for each user to say if he is target of reverts
-from or if it is an admin reverted and the ration between reverted made and received. You can do so
-much analysis of this data, that is the reason why it is avaiable to everyone who needs it. 
+From the analysis of the groups, we can define different rankings of pages using the number of
+reverts of each group. Given a page, we can plot the trend of the edits by group and detect the
+pages in which the admins are more interested. We can say from which category a given user
+is the target of reverts and the ratio between made and received reverts. Such a deep analysis of
+this data can be done, that is the reason why it is available to everyone who needs it. 
 
-here some numbers about the users 
+Here are some numbers about the users in different languages:
 \begin{table}[H]
     \centering
     \ra{1.2}
@@ -209,31 +237,48 @@ here some numbers about the users
         ca & 391'067 & 22 & 1'180   \\
      
 
-        
+
          \bottomrule
     \end{tabularx}
     
-    \caption{user sorted by mean \label{table:statsuser}}
+    \caption{Number of users by group. \label{table:statsuser}}
 \end{table}
 
 \subsection{Page}
 \paragraph*{reverts}
-we can see how the influence of admin is higher in the italian wikipedia stagionaloty
+In Fig \ref{fig:compare} we can see how the influence of the admins is higher in the Italian
+Wikipedia than in the Spanish one. All the spikes we can see in Spanish and Catalan Wikipedias are due to the
+seasonality of the user activity: every year during the summer there is a decrease in the edits and
+therefore of the reverts. In Catalan, these trends are more visible, and we can see that the number of
+reverts made by admin towards registered users is similar to the ones done by registered toward
+registered unlike the Italian and Spanish ones. 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.45\textwidth]{./chapters/04/assets/admin_es.png}
     \includegraphics[width=0.45\textwidth]{./chapters/04/assets/admin_it.png}
-    \caption{number of chain by month of juan}
+    \includegraphics[width=0.45\textwidth]{./chapters/04/assets/admin_ca.png}
+    \caption{Number of reverts done divided by group.}
     \label{fig:compare}
 \end{figure}
 \paragraph*{mutual}
+In this graph, we can see a comparison between M and the total number of reverts done and we can
+notice that M had a big growth until 2019 where it remained stable.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./chapters/04/assets/Mcompare.png}
+    \caption{mcompare}
+    \label{fig:M compared to the number of Reverts}
+\end{figure}
 \subsection{User}
+From the analysis of the reverts devided by group we are able to see the influence of admins and the
+distribution of the revert done and received during the months. It is possible to know, for a given
+user, how many reverts he received and made to each category.
 \paragraph*{reverts}
-the plots represents, for italian, catalan and spanish, the number of revert done and received by
-each category, we can see how the behaviour of the users changes with the languages especially
-towards admins. for reverts done italian and spanish are similar, but the share of the reverts of
-the admin in the received one is very different. in italy the reverts received are equally devided
-between anonymous and registered 
+The plots represent, for Italian, Catalan and Spanish, the number of reverts done and received by
+each category; we can see how the behaviour of the users changes with the language especially
+towards anonymous users. The Italian and the Spanish trends on done reverts are similar, but the share of
+the reverts of the admin in the received ones is very different. In Italy, the received reverts are
+equally divided between anonymous and registered.  
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.49\textwidth]{./chapters/04/assets/revert_done_it.png}
@@ -245,7 +290,7 @@ between anonymous and registered
     \caption{number of chain by month of juan}
     \label{fig:revuser}
 \end{figure}
-\paragraph*{mutual}
+
 
 
 

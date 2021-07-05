@@ -1,16 +1,76 @@
-\chapter{Infrastacture}
-All the code in available on Github \url{https://github.com/WikiCommunityHealth/wikimedia-revert},
-there is an onrganiziation called WikiCommunityHealth where each team member commits its
-contribution to the project. For this dataprocessing we used python since is the best option to
-handle this amount of data. The data is currently stored in the Unitn servers of Cricca group.
+\chapter{Infrastructure}
 
+All the code is available on Github
+\footnote{\url{https://github.com/WikiCommunityHealth/wikimedia-revert}} where there is an
+organization called WikiCommunityHealth where each team member commits its contribution to the
+project. For the data processing, we used python since is the best option to handle that amount of
+data. The data is currently stored in the Unitn servers of the Cricca group.
 \paragraph*{Multi Language}
-All the dataset computed are the results of several python scripts launched singularly. All the work
-has been done using the italian wikipedia as example. Automatizing the process allow us to run all
-the scripts in different languages. For achieving this automatation we used a bash script which
-takes the language as parameters e.g \textit{./generate\_dataset it} takes the data from the WikiMedia history
-dumps in italian, create a folder "it" and all the subfolders needed and generate the dataset in the
-right place. the only requirements is that the dump is already been downloaded. 
+All the datasets computed are the results of several python scripts launched singularly. All the
+work has been done using Italian Wikipedia as an example. Automatizing the process allows us to run
+all the scripts in different languages without further effort. For achieving this automation we
+used a bash script that takes the language as parameters e.g \textit{./generate\_dataset it} takes
+the data from the Wikimedia History Dumps in Italian, create a folder "it" and all the subfolders
+needed and then it generate the dataset in the right place. the only requirement is that the dump
+must have already been downloaded. 
+
+
+\section{Workflow}
+
+\paragraph{File}
+For computing the datasets, since we have to process huge amounts of data, we decided to use a
+simple style of programming without using complex libraries. We used dictionaries which are
+one of the most efficient data structures. Even if the dataset computed were different we used
+always the same structure of the code and it consisted of few steps, the program reads the compressed
+Wikimedia History Dumps line by line and for each line :
+\begin{enumerate}
+    \item Parse from the dataset the pieces of information.
+    \item Insert in dictionaries the information we want to save.
+    \item Check if the page id is different from the previous one, if this is true it means that a
+    page is finished so we can process it and initialize all the variables for a new page.
+    \item If the page is not finished, we check if the month is finished and similarly to the page
+    we process the information we gathered since we want to save an entry for each month.
+    \item If nor the page nor the month is finished we can check if this revision is reverting the
+    previous one or doing the computation we need in that specific file.
+\end{enumerate}
+
+\section{Repository}
+To handle a big project is important to organize in the best way possible the repository to avoid
+confusion while browsing also the naming of the file is important.
+\paragraph{Folder}
+This is the structure of the folder where the code is organized, the bash folder contains all the bash
+scripts used. the utility one has all the python files that were used to check things, for example,
+some files let us extract from the dataset the data about a specific page. The main
+folder instead have all the files concerning the computing and analyzing of the datasets, the
+database one has the script for uploading the files on the database for the interactive dashboard
+
+\dirtree{%
+.1 bash.
+.1 main.
+.2 analyze.
+.2 create.
+.2 database.
+.1 utility.
+}
+\paragraph{Naming}
+All the files in the main directory follow strict naming rules. The format is : \\
+\texttt{type\_class\_aggregation\_name\_month\_format.py}
+\begin{itemize}
+    \item type = the file can be one that creates a dataset (c) or that analyze it (a)
+    \item class = since this work can be divided into 2 different sections: Chain and Group so we use
+    them as the main identifier to classify the files. It exist also a generic class used when the data
+    computed was neither a chain on nor a group.
+    \item aggregation = if the file is by user or by page 
+    \item name = the name of the metrics its compute
+    \item month (optional)= if the file is by month 
+    \item format = In create files the format of the output file is written directly in the file
+    name to fastly understand what data it handles ( TSV or JSON)
+\end{itemize}
+
+\section{Data}
+A lot of different files were created in the process, so they must be well organized to retrieve them
+without errors. There is a folder for each class: chains and groups and for both of them there is
+a folder for page and one for users
 
 \paragraph*{Folder structure}
 Here the folder structure of how the data is stored :  
@@ -39,9 +99,10 @@ Here the folder structure of how the data is stored :
 
 \paragraph*{Bash Script}
 The main code written is in python but for some of the task we decided that was better using a bash
-script, in particular to automatizing process like downloading the Wikimedia History Dumps or the generation of 
+script, in particular to automatizing processes like downloading the Wikimedia History Dumps or the
+generation of the datasets.
 
 
 
-\paragraph{style}
-wide use of dictionary 
+
+

@@ -1,11 +1,13 @@
 \chapter{Introduction}
-Wikipedia  is the biggest source of information currently available on the internet, there are more
+Wikipedia is the biggest source of information currently available on the internet, there are more
 than 6 million articles and they are all maintained by volunteers. The value of Wikipedia is all in
 the hands of the editors.
 
-Many articles means many users and therefore many potential conflicts. Avoiding these conflicts is
-the best way for this encyclopedia to grow. \\ 
-Each Wikipedia page has four different sections:  
+Millions of users edit Wikipedia everyday. Many users mean many different ideas and therefore the probability
+af a disagreement is very high so conflicts are on the agenda. Avoiding these conflicts is the best way for
+this encyclopedia to grow. \\
+
+Each Wikipedia page has four different tabs:  
 \begin{itemize}
     \item Article: the actual content of the page.
     \item Talk Page: a forum where people can talk about edits. 
@@ -19,7 +21,7 @@ edit war. It is valuable to analyze all of these aspects to get a well-rounded v
 \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{./chapters/01/assets/wikipedia_page.png}
-    \caption{page structure}
+    \caption{Page structure.}
     \label{fig:page}
 \end{figure}
 
@@ -63,11 +65,15 @@ We implemented state-of-the-art metrics of controversy based on reverts and mutu
 developed a new metric based on revert chains. Metrics have been computed per page and per user
 monthly.
 
-The results can be viewed in an interactive dashboard available online.
+
 
 \section{Related Work}
 There are several works involving reverts: An interesting tool that allows visualizing conflicts is
-the one developed by Suh  \textit{et al.}~\cite{Suh2007}. The problem is that it is from 2007 but Wikipedia started to grow around
-2010; now we have new technologies and much more data to analyze so more interesting conclusions can
-be reached. There have been analyses of antisocial behavior caused by vandalism~\cite{Kiesel2017}, but since the focus
-of the project is on experienced users, this is not relevant to this study. 
+the one developed by Suh \textit{et al.}~\cite{Suh2007}. The problem is that it is from 2007 but
+Wikipedia started to grow a lot since then; now we have new technologies and much more data to
+analyze so more interesting conclusions can be reached. There have been analyses of antisocial
+behavior caused by vandalism~\cite{Kiesel2017}, but since the focus of the project is on experienced
+users, this is not relevant to this study. In 2014 Yasseri \textit{et al.}\cite{Yasseri2014} had
+defined a controversy metric M based on mutual reverts, in this study we used this metric as startng
+point to develop another controversy metric G based on reverts chain. We computed metrics for both
+page and users including M.
