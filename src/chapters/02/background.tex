@@ -1,12 +1,12 @@
 \chapter{Background}
-Everyone knows what is Wikipedia and how to read an article, but there are many features
-that most people are not aware of, \textit{e.g.} see all the versions of a page and being able to edit it. 
-Anyone with a browser and without much effort can see and compare all the edits in a
-Wikipedia page. For developers, there are many powerful resources such as big datasets
+Everyone knows what Wikipedia is and how to read an article, but there are many features
+that most people are not aware of, \textit{e.g.} the possibility to see all the versions of a page. 
+Anyone with a browser and can see and compare all the edits in a
+Wikipedia page without much effort. For developers, there are many powerful resources, such as big datasets,
 containing a lot more information.  
 
 \section{History Exploration}
-In the history section of a wikipedia article is possibile to see every version of the page.
+In the history section of a wikipedia article it's possibile to see every version of the page.
 There are several tools anyone can use to explore the revision history: 
 % questa va se vuoi foto e testo vicini
 % \begin{wrapfigure}[12]{r}{0.5\textwidth}[h]
@@ -18,9 +18,9 @@ There are several tools anyone can use to explore the revision history:
 
 
 \begin{itemize}
-    \item Mobile application: this resource is only available on mobile device and provides us
-        some statistics about the edits of the page like the total number of revisions (Fig \ref{fig:mobilehistory}). 
-    \item Website: it is possible to compare two versions with an interactive tool that shows
+    \item Mobile application: this resource is only available on mobile devices and provides us
+        some statistics about the edits of the page, like the total number of revisions (Fig \ref{fig:mobilehistory}). 
+    \item Website: it is possible to compare two versions with an interactive tool that shows us
         the progress of the modified page: each change corresponds to a bar indicating the number of
         bytes added or removed from the revision (Fig. \ref{fig:history}).
 \end{itemize}
@@ -41,29 +41,29 @@ There are several tools anyone can use to explore the revision history:
 
 
 \section{Dataset}
-There are two datasets that store information about Wikipedia edits made available from the WikiMedia
+There are two datasets that store information about Wikipedia edits, that were made available by the WikiMedia
 Foundation: a) the MediaWiki History\footnote{\url{https://wikitech.wikimedia.org/wiki/Analytics/Data_Lake/Edits/MediaWiki_history}} 
 and b) the MediaWiki History Dumps \footnote{\url{https://wikitech.wikimedia.org/wiki/Analytics/Data_Lake/Edits/Mediawiki_history_dumps}}
 
 
-The only difference other than the format (XML the former, TSV the latter) is that the former has the
-page content. The dataset used in this study is the MediaWiki History Dumps.\\
+The only difference between the two (XML the former, TSV the latter) is that the first one also
+contains the page content. The dataset used in this study is the MediaWiki History Dumps.\\
 
 Each line of the TSV represent an event and, since it is denormalized, the events for user, page and
 revision are stored in the same schema.
-All event entity have different event types:
+Event entities can be of different types:
 \begin{itemize}
-    \item Page: create, delete, move, reatore, merge  
+    \item Page: create, delete, move, restore or merge a page
     \item User: create, rename, altergroup (change user rights), alterblocks (block user)
     \item Revision: create (edit a page)
 \end{itemize}
 
-In this analysis only revision events are of interest, there are 68 fields but only a few were
-needed. The entry could be divided in different sections: one section with general information of
+In this analysis we are only interested inrevision events; they contain 68 fields but only a few of them are
+needed. The entry could be divided in different sections: one section with general information about
 the revision like timestamp and comment, a section with information about the user who did the
 revision, one for the page where the revision was made, and the last one with more specific
 information about the revision. The most relevant fields of each section are represented in the Tables 
-\ref{table:user}, \ref{table:page}, \ref{table:revision}.The caption include, if
+\ref{table:user}, \ref{table:page}, \ref{table:revision}.The caption includes, if
 needed, the descriptions of the fields.
 
 \begin{table}[H]
@@ -77,8 +77,8 @@ needed, the descriptions of the fields.
          \bottomrule
     \end{tabularx}
     
-    \caption{Data about the user who did the revision. The \textit{groups} field helps to
-     identify if the user is an admin. The \textit{revision\_count} is needed to calculate complex metrics like M and G. \label{table:user}}
+    \caption{Data about the user who made the revision. The \textit{groups} field helps to
+     clearify if the user is an admin. The \textit{revision\_count} is needed to calculate complex metrics like M and G. \label{table:user}}
 \end{table}
 
 
@@ -94,7 +94,7 @@ needed, the descriptions of the fields.
          \bottomrule
     \end{tabularx}
     
-    \caption{Data about about the page where the revision took place. The \textit{namespace} field is used
+    \caption{Data about the page where the revision took place. The \textit{namespace} field is used
     to filter only the revisions from the namespace 0, i.e., the actual encyclopedia. \label{table:page}}
 \end{table}
 
@@ -163,14 +163,16 @@ It is worth defining some terms that will be used several times in the discussio
 
 \section{Metrics}
 Two complex controversiality metrics have been computed in this study: the first one, M, is a state of the
-art metric introduced by Yasseri \textit{et al.}~\cite{Yasseri2014} which give us a score of the controversiality of the page
-based on the presence mutual reverts. The second one that we designed, called G, is very similar to M, but
-instead of using mutual reverts, it uses revert chains to evaluate the controversiality of the page.  
+art metric introduced by Yasseri \textit{et al.}~\cite{Yasseri2014} which gives us a score of the controversiality of the page
+based on the presence of mutual reverts. On the other hand the one that we designed, called G, is very similar to M, but
+instead of using mutual reverts, it uses reverts chains to evaluate the controversiality of the page.  
 
 \paragraph*{Controversiality M}
-The controversiality M of an article is defined by summing the weights of all mutually reverting
-editor pairs, excluding the topmost pair, and multiplying this number by the total number of editors
-E involved in the article.
+The controversiality M of an article is defined by summing the weights of all the mutually reverting
+editors pairs, excluding the topmost pair, and multiplying this number by the total number of
+editors E involved in the article. Using the number of edits as user weight allows us to focus on
+experienced users, the higher is the edit count the higher the value of the M metric will be. This
+is also useful to exclude the anonymous users since their edit count is equal to zero.
 
 \begin{equation}
     M = E   \sum_{all\ mutual\ reverts} MW
@@ -178,8 +180,8 @@ E involved in the article.
 
 \paragraph*{Controversiality G}
 The controversiality G of an article is defined by summing the weights of all the chains
-there are on a page and multiplying by the total number of editors N involved in at least one chain.
-
+there are on a page and by multiplying this number by the total number of editors N involved in at least one chain.
+Similarly to M, thanks to users' edit count, the weight of chains with anonymous users involved will be 0.
 \begin{equation}
     G = N \sum_{all\ revert\ chains} CW
 \end{equation}

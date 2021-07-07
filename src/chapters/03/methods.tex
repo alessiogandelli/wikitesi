@@ -1,9 +1,9 @@
 \chapter{Methods}
 
-Considering the huge size of the dataset and the fact that a large portion of its content was
-useless, smaller datasets have been computed with the aim of expediting the analysis even for future
-usages. The analysis was made based on the computed datasets. These datasets can be computed for
-every language thanks to a bash script, in this way a multilingual analysis on the most
+Considering the huge size of the dataset and the fact that a large portion of its content is not
+needed, smaller datasets have been computed with the aim of expediting the analysis even for future
+usages. The analysis was made starting from the computed datasets. These datasets can be computed for
+every language thanks to a bash script; in this way a multilingual analysis on the most
 controversial topics can be conducted in different locations.
 
 
@@ -28,22 +28,22 @@ controversial topics can be conducted in different locations.
 
 \section{Computed Dataset}
 After the first skimming, only the revisions involving a revert were saved. This dataset, whose
-schema is the same as the MediaWiki History Dumps, has been sorted by both page and timestamp, and
-thanks to this screening, the size is now $\sim 10\%$ of the original. In order to achieve this result,
+schema is the same as the one used for MediaWiki History Dumps, has been sorted by both page and timestamp and now,
+thanks to this screening, the size is approximately 10\% of the original. In order to achieve this result,
 the compressed dataset has been decompressed line by line on the fly and only the entries we were
-interested in have been saved in a file. Therefore only a small amount of RAM and disk space is
-required since all data is compressed. For the sorting part the most optimized way to sort a file,
+interested in were saved in a file. Therefore only a small amount of RAM and disk space is
+required since all data is compressed. For the sorting part the most optimized way to treat a file,
 which is Unix sort, was used.  
 
 From this filtered dataset several smaller datasets have been computed, and these can be divided into two modules: 
 
 \begin{itemize}
     \item Chains:  the focus was on detecting revert chains in the pages 
-    \item Group:  the focus was posed on the number of reverts that users made or received based on the groups they belong to (admin, registered, anonymous).
+    \item Group:  the focus was posed on the number of reverts that a user made or received based on the groups it belongs to (admin, registered, anonymous).
 \end{itemize}
 
-\subsection{Chains}
-The data concerning revert chains have been computed from the compressed filtered dataset. Every
+\subsection{Computing revert chains datasets}
+The data concerning revert chains have been computed starting from the compressed filtered dataset. Every
 time the filtered dataset was analyzed, it was read line by line and only the interesting
 pieces of information were saved. The output is a JSON file, in which every page corresponds to a JSON object.
 A list of chains and some statistics have been saved for each page. Every chain has a start and an end date, a
@@ -53,8 +53,8 @@ possible to browse it in only a few seconds.\\
 
 In order to identify a chain, we used a function, called \textit{simple\_chains}, that differs from
 another one, called \textit{complex\_chains} because it identifies a chain of revert only
-considering contiguous reverts. We decided to use the simple one because we were only interested in
-those chains that occur in a short time span, since there is where most of the discussions take place.
+considering contiguous reverts. We decided to use the former because we were only interested in
+those chains that occur in a short time span, since there is where most of the edit wars take place.
 If more than 50\% of users involved in a chain were bots the chain was excluded. There are two
 versions of this dataset, one of which considers anonymous users and one that does not. \\
 
@@ -91,11 +91,11 @@ Using this dataset it can be computed 10 times faster.
 The only difference is that the M field is missing because it is only related to a page, while the G field
 can be computed on a user considering every chain in which it is the author of at least one revision.\\
 
-The dataset was also computed monthly for both users and pages, the schema is simpler than the
+The dataset was also computed monthly for both users and pages; the schema is simpler than the
 JSON one and this allows us to save it in a TSV using only one row for each month. Instead of saving
-all the data regarding the chain, only the numbers of chains longer more than 5, 7, 9 were saved. In
+all the data regarding the chain, only the number of chains longer than 5, 7 and 9 were saved. In
 Table \ref{table:chainsPagemonth} there is a sample page entry. In order to do this, the JSON
-dataset has been processed one page (or user) at a time, after it was divided by month. The chains
+dataset has been processed one page, or user, at a time, then it was divided by month. The chains
 were counted per month basing on the start date of the chain.   
 
 \begin{table}[H]
@@ -113,43 +113,43 @@ were counted per month basing on the start date of the chain.
 \end{table}
 
 
-\subsection{Group}
-Another interesting part of this study was focusing on the category a user belongs. Thanks to this
-we were able to track the habits of the users, and this can allow us to understand, for example, if
+\subsection{Computing user group datasets}
+Another interesting part of this study was focusing on the category a user belongs to. Thanks to this
+we were able to track the habits of the users, and this allows us to understand, for example, if
 someone stopped editing Wikipedia after several reverts from admins. Detecting these kinds of
-patterns is useful for community health. The groups to which users can belong are: 
+patterns is useful for community health. The groups which users can belong to are: 
 
 
 \begin{itemize}
     \item Admin (sysop): can perform certain actions like blocking users and editing protected pages, 
     \item Registered: are logged in at the time of the edit, 
-    \item Anonymous: are not logged in and their username is their IP address(it is not possible to match an IP with a user
+    \item Anonymous: are not logged in. The username is their IP address (it is not possible to match an IP with a user
         because the IP can change over time).
 \end{itemize}
 
-The datasets computed are both for pages and users: 
+The datasets are computed for both pages and users: 
 \paragraph*{Pages} 
-For each page, there are two topics of investigation: reverts and mutual reverts. An entry of the
-dataset is a page-month containing the number of reverts and mutual reverts made on the page
-divided by group. This can be helpful, for example, to detect pages where admins are more active and
+For each page, there are two topics for the investigation: reverts and mutual reverts. The entries of the
+dataset are a page-month containing the number of reverts and mutual reverts made on the page
+divided by group. This can be helpful, for example, in order to detect pages where admins are more active, because
 this could be a sign that something is wrong with the page.
 
 
 
-The notation \textit{adm\_reg} in Table \ref{table:revertpage} refers to the number of admin that performed a
+The notation \textit{adm\_reg} in Table \ref{table:revertpage} refers to the number of admins who performed a
 revert to a registered user (similarly with \textit{adm\_adm, reg\_adm, reg\_reg} ).\\
 
 The notation \textit{mut\_ra} in the Table \ref{table:mutualpage} refers to the number of mutual
 reverts where the pair is composed by a registered user and an admin. The order of the user does not
-matter, in fact, there is no \textit{mut\_ar} that would have the same value.\\
+matter, in fact there is no \textit{mut\_ar} that would have the same value.\\
 
 
 Since the focus was on experienced users, only pairs involving registered and admins were computed.
-For having an idea of the volume of the reverts made by anonymous we saved the number of reverts
+To have an idea of the fraction of the reverts made by anonymous we saved the number of reverts
 that were made by both anonymous (\textit{anon}) and not anonymous (\textit{not\_anon}).
 
-To compute these metrics simple variables have been used. They have been incremented, if
-necessary, at each entry of the dataset and they have been initialized each time a new page 
+To compute these metrics, simple variables have been used. They have been incremented, if
+necessary, at each entry of the dataset and they have been initialized every time a new page 
 started. For both users and pages, we have discarded edits that have been marked as vandalism and
 edits made by bots.
 
@@ -170,9 +170,9 @@ edits made by bots.
 Mutual reverts are not as easy to compute as reverts. We need to store information of the whole page
 in order to correctly detect all the mutual reverts.
 
-The most efficient way to save such information is using dictionaries. For each reverter has been
-saved the list of users who reverted. At the time of processing the page the saved information
-allowed us to compute mutual revert pairs.
+The most efficient way to save such information is using dictionaries. For each reverter the list of
+users who reverted has been saved. At the time of processing the page the saved information allowed
+us to compute mutual revert pairs.
 
 \begin{table}[H]
     \centering
@@ -188,18 +188,18 @@ allowed us to compute mutual revert pairs.
 \end{table}
 
 \paragraph*{User}
-It is useful also to have the data aggregated by user. Reverts data can be retrieved from the
-filtered dataset sorted by timestamp. The data about reverts is gathered and processed month by
-month. We store, for each user-month, the number of reverts made and received divided by group.
+It is also useful to have the data aggregated by user. Reverts data can be retrieved from the
+filtered dataset sorted by timestamp. The data about reverts are gathered and processed month by
+month. We store, for each user-month, the number of reverts both made and received divided by group.
 
 When a user performs a revert, thanks to the Wikimedia History Dumps, we can know the id of the
 revision which is reverting but not the id of the reverted user. To solve this problem we
-had to save the info in different dictionaries: \textit{reverters, editor, groups}, 
+had to save the information in different dictionaries: \textit{reverters, editor, groups}, 
 \bigskip
 
 reverters[username] gives us the list of the revision it reverted. \\
 \indent editor[revision\_id] gives us the user who performs that edit. \\
-\indent groups[username] gives us the groups a user belongs.\\
+\indent groups[username] gives us the groups a user belongs to.\\
 
 Combining this dictionaries we have all the data necessary to compute all the metrics we need.
 \begin{table}[H]
@@ -224,12 +224,12 @@ Combining this dictionaries we have all the data necessary to compute all the me
 \end{table}
 
 
-The mutual revert analysis was harder to implement because in order to save the information about
-mutual reverts we need the dataset sorted by pages, but to get the data monthly we should use the
+The mutual revert analysis was harder to implement because, in order to save the information about
+mutual reverts, we needed the dataset to be sorted by page, but to get the data month by month we should have used the
 one sorted by timestamp. We solved this problem by storing the user-page-month in the dataset, i.e.,
 the information about the mutual reverts of a user in a specific month on a specific page.
-This led to a larger dataset but with a higher level of information: it is easy to post-process it
-grouping by user or month to have one entry per user or one entry per month, respectively. 
+This led to the creation of a larger dataset but with a higher level of information: it is easy to post-process it
+grouping by user or month to have, respectively, one entry per user or one entry per month. 
 
 
 \begin{table}[H]
