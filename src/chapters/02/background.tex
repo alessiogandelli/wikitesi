@@ -46,7 +46,7 @@ Foundation: a) the MediaWiki History\footnote{\url{https://wikitech.wikimedia.or
 and b) the MediaWiki History Dumps \footnote{\url{https://wikitech.wikimedia.org/wiki/Analytics/Data_Lake/Edits/Mediawiki_history_dumps}}
 
 
-The only difference between the two (XML the former, TSV the latter) is that the first one also
+The difference between the two (XML the former, TSV the latter) is that the first one also
 contains the page content. The dataset used in this study is the MediaWiki History Dumps.\\
 
 Each line of the TSV represent an event and, since it is denormalized, the events for user, page and
@@ -58,7 +58,7 @@ Event entities can be of different types:
     \item Revision: create (edit a page)
 \end{itemize}
 
-In this analysis we are only interested inrevision events; they contain 68 fields but only a few of them are
+In this analysis we are only interested in revision events; they contain 68 fields but only a few of them are
 needed. The entry could be divided in different sections: one section with general information about
 the revision like timestamp and comment, a section with information about the user who did the
 revision, one for the page where the revision was made, and the last one with more specific
@@ -137,7 +137,7 @@ It is worth defining some terms that will be used several times in the discussio
 \newtheorem{Definition}{Definition}
 \begin{Definition}
     (Revert) On Wikipedia, reverting means undoing or otherwise negating the effects of one or more edits,
-    which results in the page (or a part of it) being restored to a previous version. % TODO: citare il sito 
+    which results in the page (or a part of it) being restored to a previous version.\footnote{\url{https://en.wikipedia.org/wiki/Help:Reverting}} % TODO: citare il sito 
 \end{Definition}
 
 \begin{Definition}

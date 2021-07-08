@@ -38,7 +38,7 @@ which is Unix sort, was used.
 From this filtered dataset several smaller datasets have been computed, and these can be divided into two modules: 
 
 \begin{itemize}
-    \item Chains:  the focus was on detecting revert chains in the pages 
+    \item Chains:  the focus was on detecting revert chains in the pages. 
     \item Group:  the focus was posed on the number of reverts that a user made or received based on the groups it belongs to (admin, registered, anonymous).
 \end{itemize}
 
@@ -58,7 +58,9 @@ those chains that occur in a short time span, since there is where most of the e
 If more than 50\% of users involved in a chain were bots the chain was excluded. There are two
 versions of this dataset, one of which considers anonymous users and one that does not. \\
 
+\clearpage
 In the schema below there are all the fields in a page object. 
+
 \begin{verbatim}
     {
         "title": "Loligo_vulgaris", 
@@ -109,7 +111,7 @@ were counted per month basing on the start date of the chain.
         \bottomrule
     \end{tabularx}
     
-    \caption{Entry of the mothly TSV \label{table:chainsPagemonth}}
+    \caption{Entry of the mothly TSV. \label{table:chainsPagemonth}}
 \end{table}
 
 
@@ -121,8 +123,8 @@ patterns is useful for community health. The groups which users can belong to ar
 
 
 \begin{itemize}
-    \item Admin (sysop): can perform certain actions like blocking users and editing protected pages, 
-    \item Registered: are logged in at the time of the edit, 
+    \item Admin (sysop): can perform certain actions like blocking users and editing protected pages,.
+    \item Registered: are logged in at the time of the edit.
     \item Anonymous: are not logged in. The username is their IP address (it is not possible to match an IP with a user
         because the IP can change over time).
 \end{itemize}
@@ -137,7 +139,7 @@ this could be a sign that something is wrong with the page.
 
 
 The notation \textit{adm\_reg} in Table \ref{table:revertpage} refers to the number of admins who performed a
-revert to a registered user (similarly with \textit{adm\_adm, reg\_adm, reg\_reg} ).\\
+revert to a registered user (similarly with \textit{adm\_adm, reg\_adm, reg\_reg}).\\
 
 The notation \textit{mut\_ra} in the Table \ref{table:mutualpage} refers to the number of mutual
 reverts where the pair is composed by a registered user and an admin. The order of the user does not

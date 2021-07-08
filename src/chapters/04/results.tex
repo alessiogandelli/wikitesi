@@ -19,12 +19,13 @@ data (grapQL) we can display it on a website.
 
 \section{General statistics}
 \paragraph*{Number of reverts in pages}
-As we can see in Table \ref{table:pagesmorechains} in the largest part of the pages there are not any reverts. The filtering of Wikimedia
-History Dumps removed all the pages with zero reverts. To compute this field we needed the total
-number of articles in Wikipedia, a value that is avaiable on the statistics page of
-Wikipedia.\footnote{\url{https://en.wikipedia.org/wiki/Special:Statistics}}. To compute how many
-pages have 0 reverts we subtracted the number of pages with at least one revert from the total number
-of pages.
+As we can see in Table \ref{table:pagesmorechains} in the largest part of the pages there are not
+any reverts. The filtering of Wikimedia History Dumps removed all the pages with zero reverts. To
+compute this field we needed the total number of articles in Wikipedia, a value that is avaiable on
+the statistics page of Wikipedia.\footnote{\url{https://en.wikipedia.org/wiki/Special:Statistics}\\
+                                            } 
+To compute how many pages have 0 reverts we
+subtracted the number of pages with at least one revert from the total number of pages.
 
 \begin{table}[H]
     \centering
@@ -109,7 +110,7 @@ football.
 \begin{table}[H]
     \centering
     \ra{1.2}
-    \begin{tabularx}{\columnwidth}{@{}X|ll|ll|ll@{}}
+    \begin{tabularx}{\columnwidth}{@{}Xll|ll|ll@{}}
         \midrule
         \textbf{id} & \textbf{title it} & \textbf{chains}& \textbf{title ca} & \textbf{chains}&\textbf{title es} & \textbf{chains} \\ \toprule
         1 & Serie A & 195  & Barcelona & 68 & Club América & 222\\
@@ -264,13 +265,13 @@ Table \ref{table:usersmorechains} contains the data concerning the number of use
 %     \caption{Top 10 pages by number of chain of Juan. \label{table:pagesuser}}
 % \end{table}
 
-
+\clearpage
 \paragraph*{monthly}
 Given a user we can draw its revert chain activity. 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{./chapters/04/assets/chains_user_month.png}
-    \caption{Number of chains of an anonymized user by month}
+    \caption{Number of chains of an anonymized user by month.}
     \label{fig:chainsusermonth}
 \end{figure}
 

@@ -1,20 +1,104 @@
-\chapter*{Sommario} % senza numerazione
+\chapter*{Abstract} % senza numerazione
 \label{sommario}
+\addcontentsline{toc}{chapter}{Abstract}
+% 
+We conducted an analysis on the reverts, i.e., when the version of a page is edited or restored to
+that of a specific date, made on all the pages and users of Wikipedia in the Italian, Spanish,
+Catalan and English versions. We detected specific patterns of reverts such as revert chains: a
+series of reverts made by two or more users that continuously delete the previous revert on pages
+regarding controversial topics or people. Mutual reverts are instead a pattern that happens when
+inside a page two users are both reverting and being reverted by each other. Our goal is to improve
+community health by focusing on experienced users. We designed and used state of the art metrics to
+detect controversiality based on the revert pattern previously defined. A large portion of the work
+was dedicated to the computation of different datasets from the Wikimedia history dumps: having many
+small datasets is useful to gather the related data together and to have a faster computation of
+them. The datasets generated can be divided into two different modules: chains, containing data
+concerning revert chains, and groups, containing data about the different groups the involved users
+belong to: admin, registered and anonymous. The last one is useful to classify users as experienced
+or not. The generated datasets can be divided into two distinct categories; in the first one, the data
+has been saved aggregated by pages, while in the second one by users. The former helps us to have an
+idea about those pages in which most of the conflicts takes place and to which topics are related.
+The latter is useful to understand how the different groups' activity is distributed on Wikipedia.
+The data is saved month by month and this allows us to study the different metrics over time. We
+have done a comparative analysis between languages to detect the differences between them. We have
+discovered that the percentage of Italian users who have joined a chain is more than three times
+higher than in the Catalan and English cases. In the analysis of the admins' influence, it emerged
+how in Catalan one half of the reverts are made from admin towards registered users, while in
+the Spanish one this value is way smaller. This is also confirmed by the fact that in the Spanish
+Wikipedia there are 11 admins per million users versus the 56 in the Catalan one. From the analysis
+of the reverts both done and received, we have found an anomaly in the Italian Wikipedia: the
+reverts received by anonymous users are in a comparable number with the reverts received by the
+registered ones, while in the other Wikipedias we observed how users receive very few reverts. The
+analysis of the most controversial topics is also useful to detect sociopolitical issues and track
+their development over time. 
 
-\addcontentsline{toc}{chapter}{Sommario} % da aggiungere comunque all'indice
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nunc orci. Aliquam nec nisl vitae sapien pulvinar dictum quis non urna. Suspendisse at dui a erat aliquam vestibulum. Quisque ultrices pellentesque pellentesque. Pellentesque egestas quam sed blandit tempus. Sed congue nec risus posuere euismod. Maecenas ut lacus id mauris sagittis egestas a eu dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque at ultrices tellus. Ut eu purus eget sem iaculis ultricies sed non lorem. Curabitur gravida dui eget ex vestibulum venenatis. Phasellus gravida tellus velit, non eleifend justo lobortis eget.
+\clearpage
+\chapter*{Sommario} 
+\addcontentsline{toc}{chapter}{Sommario}
 
+Abbiamo condotto un'analisi sui reverts, cioè quando la versione di una pagina viene modificata o
+ripristinata a quella di una data specifica, su tutte le pagine e gli utenti di Wikipedia nelle
+versioni italiana, spagnola, catalano e inglese. Abbiamo individuato specifici patterns di reverts
+come le catene di revert: una serie di revert fatti da due o più utenti che cancellano continuamente
+il revert precedente su pagine riguardanti argomenti o persone controverse. I mutual revert sono
+invece un pattern che si verifica quando all'interno di una pagina due utenti fanno e subiscono un
+revert l'uno con l'altro. Il nostro obiettivo è quello di migliorare la community health
+concentrandosi sugli utenti esperti. Abbiamo progettato e utilizzato metriche allo stato dell'arte
+per rilevare la controversialità sulla base sui pattern di revert precedentemente definiti. Una gran
+parte del lavoro è stata dedicata al calcolo di diversi dataset dal Wikimedia history dumps: avere
+molti piccoli dataset è utile per raccogliere i dati tra loro correlati e per avere una velocità di
+analisi maggiore. I dataset generati possono essere divisi in due diversi moduli: chains, contenenti
+dati riguardo alle catene di revert, e groups, che contengono i dati relativi ai diversi gruppi a
+cui appartengono gli utenti coinvolti: admin, registrati e anonimi. Quest'ultimo è utile per
+classificare gli utenti come esperti o meno. I dataset generati possono essere divisi in due
+categorie distinte; nella prima, i dati sono aggregati per pagina, mentre nel secondo per utente. Il
+primo ci aiuta a capire in quali pagine avvengono la maggior parte dei conflitti e a quali argomenti
+si riferiscono. Il secondo è utile per capire come è distribuita l'attività dei diversi gruppi di
+utenti su Wikipedia. I dati vengono salvati mese per mese e questo ci permette di studiare le
+diverse metriche nel tempo. Abbiamo fatto un'analisi comparata tra le lingue per rilevare le
+differenze tra di esse. Abbiamo scoperto che la percentuale di utenti italiani che sono in una
+catena è più di tre volte più alta che nei casi del catalano e dell'inglese. Nell'analisi
+dell'influenza degli amministratori, è emerso come in catalano la metà dei reverts siano fatti dagli
+amministratori nei confronti di utenti registrati, mentre in quello spagnolo questo valore è molto più
+piccolo. Questo è confermato anche dal fatto che nella Wikipedia spagnola ci siano 11 admin per
+milione di utenti contro i 56 di quella catalana. Dall'analisi dei reverts, sia fatti che ricevuti,
+abbiamo trovato un'anomalia nella Wikipedia italiana: i revert ricevuti dagli utenti anonimi sono
+in numero comparabile con i reverts ricevuti da quelli registrati, mentre nelle altre Wikipedie abbiamo
+osservato come gli utenti registrati ricevano pochissimi reverts. L'analisi degli argomenti più
+controversi è utile anche per individuare questioni sociopolitiche e tracciare il loro sviluppo nel
+tempo. 
 
-  Sommario è un breve riassunto del lavoro svolto dove si descrive l'obiettivo, l'oggetto della tesi, le 
-metodologie e le tecniche usate, i dati elaborati e la spiegazione delle conclusioni alle quali siete arrivati.  
+% We conducted an analysis on the
+% reverts, i.e., when the version of a page is edited or restored to
+% that of a specific date, made on all the pages of Wikipedia in Italian, Spanish, Catalan and on part
+% of the English one. with the main focus on revert wars, a series of reverts made by two or more
+% users that continuously delete the previous revert on pages regarding controversial topics or
+% people. By computing datasets containing pages about controversialities, identifed by a metric based
+% on the number of reverts, we studied both the revert chains and the groups the users belonged to,
+% with the intent to explore the possibility of improving the community health. 
 
-Il sommario dell’elaborato consiste al massimo di 3 pagine e deve contenere le seguenti informazioni:
-\begin{itemize}
-  \item contesto e motivazioni 
-  \item breve riassunto del problema affrontato
-  \item tecniche utilizzate e/o sviluppate
-  \item risultati raggiunti, sottolineando il contributo personale del laureando/a
-\end{itemize}
+% The works could be devied in two moments, the actual analysis of the datsets and the generations of
+% them. Several dataset had been computed from the wikimedia history dumps in order to have small datasets to speed un the
+% analysis.The datasets computed could be devided in two different modules: one with the focus on
+% revert chains and the other in which we wanted do divide the users in category: admin registered and
+% anonymous. each dataset has been computed both by pages and users. 
 
+% Thanks to these data processed we had reach some conclusions, especially doing a comparated analysis
+% between languages.
 
+% the data aggregated by pages allow us to understand which are the main controversial topics. the
+% data is also saved month by month and this is useful to draw the trend of a page over the time 
+
+% the data aggregated by users helps to identify the volumes of categories of users that perform and
+% receive reverts. o to reconstruct the revert history of a user 
+
+% experienced usersok
+% community health ok
+% controversiality ok
+% pattern ok
+% mutual reverts ok
+% chains ok
+% compute datasets 
+% revert wars
+% conflicts 
